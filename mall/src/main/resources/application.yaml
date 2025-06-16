@@ -1,1 +1,14 @@
-spring.application.name=mall
+server:
+  port: 8080
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.107.238.93:3306/mall?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: mall
+    password: 12345678
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+
