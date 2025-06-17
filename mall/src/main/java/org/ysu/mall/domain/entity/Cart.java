@@ -1,4 +1,4 @@
-package org.ysu.mall.entity;
+package org.ysu.mall.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -9,31 +9,36 @@ import lombok.Data;
 
 /**
  * 
- * @TableName category
+ * @TableName cart
  */
-@TableName(value ="category")
+@TableName(value ="cart")
 @Data
-public class Category {
+public class Cart {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer categoryId;
+    private Integer cartId;
 
     /**
-     * 分类名称
+     * 
      */
-    private String name;
+    private Integer userId;
 
     /**
-     * 父分类ID(0=顶级)
+     * 
      */
-    private Integer parentId;
+    private Integer productId;
 
     /**
-     * 排序权重
+     * 商品数量
      */
-    private Integer sortOrder;
+    private Integer quantity;
+
+    /**
+     * 是否选中
+     */
+    private Integer selected;
 
     /**
      * 

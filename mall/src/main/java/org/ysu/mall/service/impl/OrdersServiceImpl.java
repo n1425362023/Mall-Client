@@ -2,7 +2,7 @@ package org.ysu.mall.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import org.ysu.mall.entity.Orders;
+import org.ysu.mall.domain.entity.Orders;
 import org.ysu.mall.mapper.OrdersMapper;
 import org.ysu.mall.service.OrdersService;
 

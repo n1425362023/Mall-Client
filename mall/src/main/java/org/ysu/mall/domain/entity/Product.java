@@ -1,4 +1,4 @@
-package org.ysu.mall.entity;
+package org.ysu.mall.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

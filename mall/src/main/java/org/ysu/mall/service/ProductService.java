@@ -1,7 +1,7 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.ysu.mall.entity.Product;
+import org.ysu.mall.domain.entity.Product;
 
 /**
 * @author DELL

@@ -1,4 +1,4 @@
-package org.ysu.mall.entity;
+package org.ysu.mall.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,32 +11,32 @@ import lombok.experimental.Accessors;
 
 /**
  * 
- * @TableName orders
+ * @TableName payment
  */
-@TableName(value ="orders")
+@TableName(value ="payment")
 @Data
 @Accessors(chain = true)
-public class Orders {
+public class Payment {
     /**
-     * 订单号(时间戳+随机数)
+     * 支付流水号
      */
     @TableId
+    private String paymentId;
+
+    /**
+     * 
+     */
     private String orderId;
 
     /**
      * 
      */
-    private Integer userId;
+    private BigDecimal amount;
 
     /**
      * 
      */
-    private Integer addressId;
-
-    /**
-     * 订单总额
-     */
-    private BigDecimal totalAmount;
+    private Object platform;
 
     /**
      * 
@@ -44,19 +44,9 @@ public class Orders {
     private Object status;
 
     /**
-     * 支付方式
+     * 第三方支付ID
      */
-    private Object paymentMethod;
-
-    /**
-     * 支付时间
-     */
-    private Date paymentTime;
-
-    /**
-     * 发货时间
-     */
-    private Date deliveryTime;
+    private String transactionId;
 
     /**
      * 

@@ -2,7 +2,7 @@ package org.ysu.mall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.ysu.mall.entity.User;
+import org.ysu.mall.domain.entity.User;
 
 /**
 * @author DELL
