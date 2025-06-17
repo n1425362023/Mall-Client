@@ -15,12 +15,14 @@ public class ApiResponse<T> {
         this.message = message;
         this.data = data;
     }
-    // 使用枚举的成功响应
-    public static <T> ApiResponse<T>
-    success(ResultEnum result, T data) {
-        return new ApiResponse<>(result.getCode(), result.getMessage(), data);
+    public static <T> ApiResponse<T> success() {
+        return new ApiResponse<>(ResultEnum.SUCCESS.getCode(),ResultEnum.SUCCESS.getMessage(), null);
     }
 
+    // 使用枚举的成功响应
+    public static <T> ApiResponse<T> success(ResultEnum result, T data) {
+        return new ApiResponse<>(result.getCode(), result.getMessage(), data);
+    }
 
     // 直接返回数据
     public static <T> ApiResponse<T> success(T data) {
