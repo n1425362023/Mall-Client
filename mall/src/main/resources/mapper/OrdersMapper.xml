@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ysu.mall.mapper.OrdersMapper">
+
+    <resultMap id="BaseResultMap" type="org.ysu.mall.entity.Orders">
+            <id property="orderId" column="order_id" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="addressId" column="address_id" jdbcType="INTEGER"/>
+            <result property="totalAmount" column="total_amount" jdbcType="DECIMAL"/>
+            <result property="status" column="status" jdbcType="OTHER"/>
+            <result property="paymentMethod" column="payment_method" jdbcType="OTHER"/>
+            <result property="paymentTime" column="payment_time" jdbcType="TIMESTAMP"/>
+            <result property="deliveryTime" column="delivery_time" jdbcType="TIMESTAMP"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_id,user_id,address_id,
+        total_amount,status,payment_method,
+        payment_time,delivery_time,created_at
+    </sql>
+</mapper>
