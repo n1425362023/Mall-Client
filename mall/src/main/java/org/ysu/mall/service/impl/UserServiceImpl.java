@@ -1,10 +1,17 @@
 package org.ysu.mall.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.ysu.mall.domain.dto.UserDto;
 import org.ysu.mall.domain.entity.User;
+import org.ysu.mall.enums.ResultEnum;
+import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.mapper.UserMapper;
 import org.ysu.mall.service.UserService;
+import org.ysu.mall.util.Sha256Util;
 
 /**
 * @author DELL
@@ -12,9 +19,96 @@ import org.ysu.mall.service.UserService;
 * @createDate 2025-06-17 09:52:36
 */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User>
-    implements UserService {
+@Transactional(rollbackFor = Exception.class)
+@RequiredArgsConstructor
+@Slf4j
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+    private final UserMapper userMapper;
 
+
+    public User register(UserDto userDto){
+        //检查用户是否存在
+        if(lambdaQuery().eq(User::getUsername, userDto.getUsername()).exists()){
+            throw new BusinessException(ResultEnum.USERNAME_CONFLICT);
+        }
+        try{
+            User user = new User()
+                    .setUsername(userDto.getUsername())
+                    .setPassword(Sha256Util.encrypt(userDto.getPassword()))
+                    .setPhone(userDto.getPhone());
+            if(!save(user)){
+                throw new BusinessException(ResultEnum.USER_ADD_ERROR);
+            }
+            return user;
+
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"用户添加失败");
+        }
+    }
+
+    public User login(String username, String password){
+        if(lambdaQuery().eq(null != username, User::getUsername, username).exists()){
+            throw new BusinessException(ResultEnum.USER_NOT_FOUND);
+        }
+        try{
+           User user = lambdaQuery().eq(User::getUsername, username).one();
+            if(!Sha256Util.encrypt(password).equals(user.getPassword())){
+                throw new BusinessException(ResultEnum.USER_PASSWORD_ERROR);
+            }
+            return user;
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"用户登录失败");
+        }
+    }
+
+    public User update(UserDto userDto){
+        User user = lambdaQuery().eq(User::getUsername, userDto.getUsername()).one();
+        if(null == user){
+            throw new BusinessException(ResultEnum.USERNAME_CONFLICT);
+        }
+        try{
+            user.setUsername(userDto.getUsername())
+                    .setPhone(userDto.getPhone())
+                    .setAvatar(userDto.getAvatar());
+            if(!updateById(user)){
+                throw new BusinessException(ResultEnum.USER_UPDATE_ERROR);
+            }
+            return user;
+
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"用户更新失败");
+        }
+    }
+
+    public Boolean resetPassword(Integer userId, String password) {
+        try{
+            User user = userMapper.selectById(userId);
+            if (user != null) {
+                user.setPassword(Sha256Util.encrypt(password));
+                if(!updateById(user)) throw new BusinessException(ResultEnum.USER_PASSWORD_RESET_FAILED);
+                return true;
+            }else {
+                throw new BusinessException(ResultEnum.USER_NOT_FOUND);
+            }
+        }catch(Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "用户密码重置失败");
+        }
+    }
+
+    public Boolean delete(Integer userId) {
+        try{
+            if(!removeById(userId)) throw new BusinessException(ResultEnum.USER_DELETE_ERROR);
+            return true;
+        }catch(Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "用户删除失败");
+        }
+    }
 }
 
 

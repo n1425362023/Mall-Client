@@ -2,18 +2,16 @@ package org.ysu.mall.domain.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.ysu.mall.enums.Role;
-
-import java.util.Date;
+import org.ysu.mall.validationGroups.ResetPasswoedGroup;
 
 @Data
 public class UserDto {
-    @NotNull(message = "UserID cannot be empty" )
+    @NotNull(message = "UserID cannot be empty" ,groups = {ResetPasswoedGroup.class})
     private Integer userId;
 
     /**
@@ -25,14 +23,9 @@ public class UserDto {
     /**
      * 加密密码
      */
-    @NotBlank(message = "Password cannot be empty" )
+    @NotBlank(message = "Password cannot be empty" ,groups = {ResetPasswoedGroup.class})
     private String password;
 
-    /**
-     * 邮箱
-     */
-    @Email(message = "Email format is incorrect")
-    private String email;
 
     /**
      * 手机号

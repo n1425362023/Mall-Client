@@ -21,11 +21,12 @@ public enum ResultEnum {
     USER_FREEZE_FAILED(4006, "用户冻结失败"),
     USER_UNFREEZE_FAILED(4007, "用户解冻失败"),
     USER_FROZEN(4008, "用户已被冻结"),
+    USER_UPDATE_ERROR(4009, "用户更新失败"),
     CAPTCHA_EXPIRED(4011, "验证码已过期"),
     USER_NOT_FOUND(4012, "用户不存在"),
     USERNAME_CONFLICT(4091, "用户名冲突"),
 
-    PASSWORD_ERROR(4092, "密码错误"),
+    USER_PASSWORD_ERROR(4092, "密码错误"),
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),
     SERVICE_UNAVAILABLE(503, "服务不可用");

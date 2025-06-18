@@ -1,6 +1,7 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.ysu.mall.domain.dto.UserDto;
 import org.ysu.mall.domain.entity.User;
 
 /**
@@ -9,5 +10,13 @@ import org.ysu.mall.domain.entity.User;
 * @createDate 2025-06-17 09:52:36
 */
 public interface UserService extends IService<User> {
+    User register(UserDto userDto);
 
+    User login(String Username, String password);
+
+    User update(UserDto userDto);
+
+    Boolean resetPassword(Integer userId, String password);
+
+    Boolean delete(Integer userId);
 }

@@ -32,10 +32,7 @@ public class User {
      */
     private String password;
 
-    /**
-     * 邮箱
-     */
-    private String email;
+
 
     /**
      * 手机号
@@ -66,4 +63,7 @@ public class User {
      * 
      */
     private Date updatedAt;
+
+    @TableField(exist = false)
+    private String token;
 }
