@@ -3,7 +3,6 @@ CREATE TABLE `user` (
                         `user_id` INT AUTO_INCREMENT PRIMARY KEY COMMENT '用户ID',
                         `username` VARCHAR(50) NOT NULL UNIQUE COMMENT '用户名',
                         `password` VARCHAR(255) NOT NULL COMMENT '加密密码',
-                        `email` VARCHAR(100) NOT NULL UNIQUE COMMENT '邮箱',
                         `phone` VARCHAR(20) COMMENT '手机号',
                         `avatar` VARCHAR(255) COMMENT '头像URL',
                         `role` ENUM('customer', 'admin') DEFAULT 'customer' COMMENT '用户角色',
