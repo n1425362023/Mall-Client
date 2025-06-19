@@ -20,7 +20,7 @@ public class Orders {
     /**
      * 订单号(时间戳+随机数)
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_ID)
     private String orderId;
 
     /**

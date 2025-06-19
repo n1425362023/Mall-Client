@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -51,7 +53,7 @@ public class Product {
     /**
      * 子图URL集合(JSON格式)
      */
-    private String subImages;
+    private List<String> subImages;
 
     /**
      * 商品详情

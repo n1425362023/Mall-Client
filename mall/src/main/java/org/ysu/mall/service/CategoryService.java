@@ -1,7 +1,10 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.ysu.mall.domain.dto.CategoryDto;
 import org.ysu.mall.domain.entity.Category;
+
+import java.util.List;
 
 /**
 * @author DELL
@@ -9,5 +12,11 @@ import org.ysu.mall.domain.entity.Category;
 * @createDate 2025-06-17 10:22:27
 */
 public interface CategoryService extends IService<Category> {
+    public Category addCategory(CategoryDto categoryDto);
 
+    public Boolean deleteCategory(Integer categoryId);
+
+    public Category updateCategory(CategoryDto categoryDto);
+
+    public List<Category> getAllCategory();
 }

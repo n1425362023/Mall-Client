@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/payent")
+@RequestMapping("/payment")
 public class PaymentController {
 }

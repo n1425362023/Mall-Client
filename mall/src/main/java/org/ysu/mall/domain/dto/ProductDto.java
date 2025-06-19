@@ -9,6 +9,8 @@ import org.ysu.mall.enums.ProductStatus;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 @Data
 public class ProductDto {
 
@@ -54,7 +56,7 @@ public class ProductDto {
      * 子图URL集合(JSON格式)
      */
     @NotBlank(message = "The sub image URL cannot be empty")
-    private String subImages;
+    private List<String> subImages;
 
     /**
      * 商品详情

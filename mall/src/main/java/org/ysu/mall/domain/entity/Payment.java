@@ -20,7 +20,7 @@ public class Payment {
     /**
      * 支付流水号
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_ID)
     private String paymentId;
 
     /**
