@@ -14,7 +14,7 @@ public class AddressDto {
     /**
      *
      */
-    @NotNull(message = "Address ID cannot be empty")
+
     private Integer addressId;
 
     /**

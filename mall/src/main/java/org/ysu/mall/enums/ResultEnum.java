@@ -27,6 +27,11 @@ public enum ResultEnum {
     USERNAME_CONFLICT(4091, "用户名冲突"),
 
     USER_PASSWORD_ERROR(4092, "密码错误"),
+
+    ADDRESS_ADD_ERROR(4093, "地址添加失败"),
+    ADDRESS_DELETE_ERROR(4094, "地址删除失败"),
+    ADDRESS_NOT_FOUND(4095, "地址不存在"),
+    ADDRESS_UPDATE_ERROR(4096, "地址更新失败"),
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),
     SERVICE_UNAVAILABLE(503, "服务不可用");
