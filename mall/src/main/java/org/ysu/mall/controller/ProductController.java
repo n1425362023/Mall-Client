@@ -6,6 +6,7 @@ import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.dto.ProductDto;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
+import org.ysu.mall.service.CategoryService;
 import org.ysu.mall.service.ProductService;
 
 @CrossOrigin
@@ -14,19 +15,21 @@ import org.ysu.mall.service.ProductService;
 @RequestMapping("/product")
 public class ProductController {
         private final ProductService productService;
-
+        private final CategoryService categoryService;
 
         @PostMapping("/add")
         public ApiResponse<?> addProduct(@RequestBody ProductDto productDto) {
             try{
-               if(productService.addProduct(productDto)){
+                if(categoryService.getCategoryById(productDto.getCategoryId())==null){
+                    throw new BusinessException(ResultEnum.CATEGORY_NOT_FOUND);
+                }
+                if(productService.addProduct(productDto)){
                    return  ApiResponse.success(ResultEnum.SUCCESS);
-               }else{
+                }else{
                    return ApiResponse.error(ResultEnum.PRODUCT_ADD_ERROR);
-               }
-            }catch (BusinessException e){
+                }
+            }catch (BusinessException e) {
                 return ApiResponse.error(e.getCode());
-
             }
         }
 }

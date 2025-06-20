@@ -22,7 +22,6 @@ public class AddressController {
             return ApiResponse.success(addressService.addAddress(addressDto));
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
-
         }
     }
 

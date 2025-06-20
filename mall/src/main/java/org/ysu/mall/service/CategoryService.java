@@ -19,4 +19,6 @@ public interface CategoryService extends IService<Category> {
     public Category updateCategory(CategoryDto categoryDto);
 
     public List<Category> getAllCategory();
+
+    public Category getCategoryById(Integer categoryId);
 }

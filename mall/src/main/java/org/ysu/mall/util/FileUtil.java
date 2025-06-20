@@ -3,13 +3,15 @@ package org.ysu.mall.util;
 import io.minio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class FileUtil {
+@Component
+public  class FileUtil {
 
     private MinioClient minioClient;
 
@@ -19,7 +21,7 @@ public class FileUtil {
     /**
      * 上传单个文件到MinIO
      */
-    public String uploadFile(MultipartFile file) throws Exception {
+    public  String uploadFile(MultipartFile file) throws Exception {
         // 检查桶是否存在，不存在则创建
         boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
                 .bucket(bucketName)
@@ -55,7 +57,7 @@ public class FileUtil {
     /**
      * 批量上传文件到MinIO
      */
-    public List<String> uploadFiles(List<MultipartFile> files) {
+    public  List<String> uploadFiles(List<MultipartFile> files) {
         List<String> urls = new ArrayList<>();
         for (MultipartFile file : files) {
             try {

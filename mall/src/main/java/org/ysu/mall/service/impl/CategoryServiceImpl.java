@@ -83,6 +83,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             throw new BusinessException(ResultEnum.SYSTEM_ERROR,"获取分类失败");
         }
     }
+
+    public Category getCategoryById(Integer categoryId){
+        try{
+            return categoryMapper.selectById(categoryId);
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"获取分类失败");
+        }
+    }
 }
 
 
