@@ -10,7 +10,7 @@
             <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
             <result property="price" column="price" jdbcType="DECIMAL"/>
             <result property="stock" column="stock" jdbcType="INTEGER"/>
-            <result property="mainImage" column="main_image" jdbcType="VARCHAR"/>
+            <result property="mainImages" column="main_images" jdbcType="VARCHAR"/>
             <result property="subImages" column="sub_images" jdbcType="VARCHAR"/>
             <result property="detail" column="detail" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="OTHER"/>
@@ -20,7 +20,7 @@
 
     <sql id="Base_Column_List">
         product_id,product_name,category_id,
-        price,stock,main_image,
+        price,stock,main_images,
         sub_images,detail,status,
         created_at,updated_at
     </sql>

@@ -37,6 +37,7 @@ public enum ResultEnum {
     CATEGORY_DELETE_ERROR(4021, "分类删除失败"),
     CATEGORY_UPDATE_ERROR(4022, "分类更新失败"),
 
+    PRODUCT_ADD_ERROR(4023, "商品添加失败"),
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),
     SERVICE_UNAVAILABLE(503, "服务不可用");

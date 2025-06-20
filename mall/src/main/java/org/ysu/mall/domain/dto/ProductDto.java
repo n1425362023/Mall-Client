@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 import org.ysu.mall.enums.ProductStatus;
 
 import java.math.BigDecimal;
@@ -50,13 +51,13 @@ public class ProductDto {
      * 主图URL
      */
     @NotBlank(message = "The main image URL cannot be empty")
-    private String mainImage;
+    private List<MultipartFile> mainImages;
 
     /**
      * 子图URL集合(JSON格式)
      */
     @NotBlank(message = "The sub image URL cannot be empty")
-    private List<String> subImages;
+    private List<MultipartFile> subImages;
 
     /**
      * 商品详情

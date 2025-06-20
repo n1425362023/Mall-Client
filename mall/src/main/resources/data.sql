@@ -27,7 +27,7 @@ CREATE TABLE `product` (
                            `category_id` INT NOT NULL COMMENT '分类ID',
                            `price` DECIMAL(10,2) NOT NULL COMMENT '销售价',
                            `stock` INT NOT NULL DEFAULT 0 COMMENT '库存',
-                           `main_image` VARCHAR(255) NOT NULL COMMENT '主图URL',
+                           `main_images` TEXT NOT NULL COMMENT '主图URL',
                            `sub_images` TEXT COMMENT '子图URL集合(JSON格式)',
                            `detail` TEXT COMMENT '商品详情',
                            `status` ENUM('draft','on_sale','off_sale') DEFAULT 'draft' COMMENT '状态',

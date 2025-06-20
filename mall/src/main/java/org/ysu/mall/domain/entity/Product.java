@@ -48,7 +48,7 @@ public class Product {
     /**
      * 主图URL
      */
-    private String mainImage;
+    private List<String> mainImages;
 
     /**
      * 子图URL集合(JSON格式)

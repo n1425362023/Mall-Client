@@ -26,7 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final UserMapper userMapper;
 
 
-    public User register(UserDto userDto){
+    public Boolean register(UserDto userDto){
         //检查用户是否存在
         if(lambdaQuery().eq(User::getUsername, userDto.getUsername()).exists()){
             throw new BusinessException(ResultEnum.USERNAME_CONFLICT);
@@ -39,7 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if(!save(user)){
                 throw new BusinessException(ResultEnum.USER_ADD_ERROR);
             }
-            return user;
+            return true;
 
         }catch (BusinessException e){
             throw e;

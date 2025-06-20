@@ -10,7 +10,7 @@ import org.ysu.mall.domain.entity.User;
 * @createDate 2025-06-17 09:52:36
 */
 public interface UserService extends IService<User> {
-    User register(UserDto userDto);
+    Boolean register(UserDto userDto);
 
     User login(String Username, String password);
 

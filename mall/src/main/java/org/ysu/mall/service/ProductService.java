@@ -1,6 +1,7 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.ysu.mall.domain.dto.ProductDto;
 import org.ysu.mall.domain.entity.Product;
 
 /**
@@ -9,5 +10,5 @@ import org.ysu.mall.domain.entity.Product;
 * @createDate 2025-06-17 09:52:36
 */
 public interface ProductService extends IService<Product> {
-
+    Boolean addProduct(ProductDto productDto);
 }

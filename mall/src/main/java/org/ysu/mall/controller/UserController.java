@@ -24,7 +24,11 @@ public class UserController {
     @PostMapping("/register")
     public ApiResponse<?> register(@Valid @RequestBody UserDto userDto) {
         try{
-            return ApiResponse.success(userService.register(userDto));
+            if(userService.register(userDto)){
+                return ApiResponse.success(ResultEnum.SUCCESS);
+            }else{
+                return ApiResponse.error(ResultEnum.USER_ADD_ERROR);
+            }
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
 

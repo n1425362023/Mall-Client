@@ -12,3 +12,9 @@ spring:
 
 
 
+minio:
+  endpoint: http://39.107.238.93:9000
+  accessKey: admin
+  secretKey: 12345678
+  bucketName: images
+
