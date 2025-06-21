@@ -12,11 +12,11 @@ import java.util.List;
 * @createDate 2025-06-17 10:22:27
 */
 public interface CartService extends IService<Cart> {
-    public Boolean addCart (CartDto cartDto);
+    Boolean addCart(CartDto cartDto);
 
-    public Boolean deleteCart (Integer cartId);
+    Boolean deleteCart(Integer cartId);
 
-    public Boolean updateCart (CartDto cartDto);
+    Boolean updateCart(CartDto cartDto);
 
-    public List<Cart> getCartList (Integer userId);
+    List<Cart> getCartList(Integer userId);
 }
