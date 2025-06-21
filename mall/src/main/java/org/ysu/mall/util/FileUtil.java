@@ -1,28 +1,39 @@
 package org.ysu.mall.util;
 
 import io.minio.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import org.ysu.mall.config.MinioConfig;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Component
-public  class FileUtil {
+public class FileUtil {
 
+    private final MinioConfig minioConfig;
     private MinioClient minioClient;
 
     @Value("${minio.bucketName}")
     private String bucketName;
 
+    public FileUtil(MinioConfig minioConfig) {
+        this.minioConfig = minioConfig;
+    }
+
+    @PostConstruct
+    public void init() {
+        this.minioClient = minioConfig.minioClient();
+    }
+
     /**
-     * 上传单个文件到MinIO
+     * 上传单个文件并返回公开桶中的永久链接
      */
-    public  String uploadFile(MultipartFile file) throws Exception {
-        // 检查桶是否存在，不存在则创建
+    public String uploadFile(MultipartFile file) throws Exception {
+        // 1. 检查桶是否存在，不存在则创建
         boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
                 .bucket(bucketName)
                 .build());
@@ -32,10 +43,10 @@ public  class FileUtil {
                     .build());
         }
 
-        // 生成唯一文件名
+        // 2. 生成唯一文件名
         String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
 
-        // 上传文件
+        // 3. 上传文件
         minioClient.putObject(
                 PutObjectArgs.builder()
                         .bucket(bucketName)
@@ -45,25 +56,20 @@ public  class FileUtil {
                         .build()
         );
 
-        // 返回文件URL
-        return minioClient.getObject(
-                GetObjectArgs.builder()
-                        .bucket(bucketName)
-                        .object(fileName)
-                        .build()
-        ).object();
+        // 4. 返回拼接的永久访问 URL（仅适用于公开桶）
+        return minioConfig.getEndpoint() + "/" + bucketName + "/" + fileName;
     }
 
     /**
-     * 批量上传文件到MinIO
+     * 批量上传文件
      */
-    public  List<String> uploadFiles(List<MultipartFile> files) {
+    public List<String> uploadFiles(List<MultipartFile> files) {
         List<String> urls = new ArrayList<>();
         for (MultipartFile file : files) {
             try {
                 urls.add(uploadFile(file));
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace(); // 可换为日志记录
             }
         }
         return urls;
@@ -71,8 +77,6 @@ public  class FileUtil {
 
     /**
      * 删除单个文件
-     * @param objectName 要删除的文件名（从getObject返回的object()值）
-     * @return 是否删除成功
      */
     public boolean deleteFile(String objectName) throws Exception {
         try {
@@ -90,8 +94,6 @@ public  class FileUtil {
 
     /**
      * 批量删除文件
-     * @param objectNames 要删除的文件名列表（从getObject返回的object()值）
-     * @return 删除成功的文件列表
      */
     public List<String> deleteFiles(List<String> objectNames) {
         List<String> deletedFiles = new ArrayList<>();
@@ -100,27 +102,22 @@ public  class FileUtil {
                 deleteFile(objectName);
                 deletedFiles.add(objectName);
             } catch (Exception e) {
-                // 记录删除失败的文件，可以根据需要处理
+                e.printStackTrace();
             }
         }
         return deletedFiles;
     }
 
     /**
-     * 根据URL删除文件（如果URL包含对象名）
-     * @param url 文件URL
-     * @return 是否删除成功
+     * 根据 URL 删除文件（提取 objectName）
      */
     public boolean deleteFileByUrl(String url) throws Exception {
-        // 从URL中提取对象名（假设URL格式为 http://minio-server/bucket/objectName）
         String objectName = url.substring(url.lastIndexOf('/') + 1);
         return deleteFile(objectName);
     }
 
     /**
-     * 根据URL批量删除文件
-     * @param urls 文件URL列表
-     * @return 删除成功的URL列表
+     * 批量根据 URL 删除文件
      */
     public List<String> deleteFilesByUrls(List<String> urls) {
         List<String> deletedUrls = new ArrayList<>();
@@ -130,7 +127,7 @@ public  class FileUtil {
                     deletedUrls.add(url);
                 }
             } catch (Exception e) {
-                // 记录删除失败的URL，可以根据需要处理
+                e.printStackTrace();
             }
         }
         return deletedUrls;

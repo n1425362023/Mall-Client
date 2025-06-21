@@ -1,5 +1,6 @@
 package org.ysu.mall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.ysu.mall.mapper.ProductMapper;
 import org.ysu.mall.service.ProductService;
 import org.ysu.mall.util.FileUtil;
 
+import java.util.List;
+
 /**
 * @author DELL
 * @description 针对表【product】的数据库操作Service实现
@@ -27,7 +30,7 @@ import org.ysu.mall.util.FileUtil;
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements ProductService {
     private final ProductMapper productMapper;
     private final FileUtil fileUtil;
-    //TODO 调用fileService上传图片
+
     public Boolean addProduct(ProductDto productDto){
         try{
             Product product = new Product().
@@ -46,6 +49,60 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             throw e;
         }catch (Exception e){
             throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品添加失败");
+        }
+    }
+
+    public Boolean deleteProduct(Integer productId){
+        try{
+            fileUtil.deleteFilesByUrls(productMapper.selectById(productId).getMainImages());
+            fileUtil.deleteFilesByUrls(productMapper.selectById(productId).getSubImages());
+            if(!removeById(productId)){
+                throw new BusinessException(ResultEnum.PRODUCT_DELETE_ERROR);
+            }
+            return true;
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品删除失败");
+        }
+    }
+
+    public Boolean updateProduct(ProductDto productDto){
+        try{
+            Product product = new Product()
+                    .setProductName(productDto.getProductName())
+                    .setPrice(productDto.getPrice())
+                    .setStock(productDto.getStock())
+                    .setMainImages(fileUtil.uploadFiles(productDto.getMainImages()))
+                    .setSubImages(fileUtil.uploadFiles(productDto.getSubImages()))
+                    .setDetail(productDto.getDetail())
+                    .setStatus(productDto.getStatus());
+            if(!updateById(product)){
+                throw new BusinessException(ResultEnum.PRODUCT_UPDATE_ERROR);
+            }
+            return true;
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e) {
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "商品更新失败");
+        }
+    }
+
+    public Product getProduct(Integer productId){
+        try{
+            return productMapper.selectById(productId);
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品查询失败");
+        }
+    }
+
+    public List<Product> getProductList(Integer categoryId){
+        try{
+            LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Product::getCategoryId,categoryId);
+            return productMapper.selectList(queryWrapper);
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品查询失败");
         }
     }
 }

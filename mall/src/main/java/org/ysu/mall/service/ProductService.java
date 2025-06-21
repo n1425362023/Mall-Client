@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.ysu.mall.domain.dto.ProductDto;
 import org.ysu.mall.domain.entity.Product;
 
+import java.util.List;
+
 /**
 * @author DELL
 * @description 针对表【product】的数据库操作Service
@@ -11,4 +13,12 @@ import org.ysu.mall.domain.entity.Product;
 */
 public interface ProductService extends IService<Product> {
     Boolean addProduct(ProductDto productDto);
+
+    Boolean deleteProduct(Integer productId);
+
+    Boolean updateProduct(ProductDto productDto);
+
+    Product getProduct(Integer productId);
+
+    List<Product> getProductList(Integer categoryId);
 }
