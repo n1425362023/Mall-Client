@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 
@@ -13,6 +14,7 @@ import lombok.Data;
  */
 @TableName(value ="cart")
 @Data
+@Accessors(chain = true)
 public class Cart {
     /**
      * 
@@ -38,7 +40,7 @@ public class Cart {
     /**
      * 是否选中
      */
-    private Integer selected;
+    private Boolean selected;
 
     /**
      * 

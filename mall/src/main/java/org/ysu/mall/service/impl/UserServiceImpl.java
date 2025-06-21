@@ -109,6 +109,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException(ResultEnum.SYSTEM_ERROR, "用户删除失败");
         }
     }
+
+    public User getUserById(Integer userId) {
+        try{
+            return userMapper.selectById(userId);
+        }catch(Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "用户查询失败");
+        }
+    }
 }
 
 

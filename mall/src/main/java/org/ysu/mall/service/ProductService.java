@@ -18,7 +18,7 @@ public interface ProductService extends IService<Product> {
 
     Boolean updateProduct(ProductDto productDto);
 
-    Product getProduct(Integer productId);
+    Product getProductById(Integer productId);
 
     List<Product> getProductList(Integer categoryId);
 }

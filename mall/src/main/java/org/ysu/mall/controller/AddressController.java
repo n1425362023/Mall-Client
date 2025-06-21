@@ -19,7 +19,11 @@ public class AddressController {
     @PostMapping("/add")
     public ApiResponse<?> addAddress(@Valid @RequestBody AddressDto addressDto) {
         try{
-            return ApiResponse.success(addressService.addAddress(addressDto));
+            if(addressService.addAddress(addressDto)){
+                return ApiResponse.success(ResultEnum.SUCCESS);
+            }else{
+                return ApiResponse.error(ResultEnum.ADDRESS_NOT_FOUND);
+            }
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }
@@ -50,7 +54,7 @@ public class AddressController {
     @GetMapping("/get/{userId}")
     public ApiResponse<?> getAddress(@PathVariable Integer userId) {
         try{
-            return ApiResponse.success(addressService.getAddress(userId));
+            return ApiResponse.success(addressService.getAddressList(userId));
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }

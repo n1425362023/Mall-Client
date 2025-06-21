@@ -19,4 +19,6 @@ public interface UserService extends IService<User> {
     Boolean resetPassword(Integer userId, String password);
 
     Boolean delete(Integer userId);
+
+    User getUserById(Integer userId);
 }

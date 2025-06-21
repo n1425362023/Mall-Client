@@ -88,7 +88,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         }
     }
 
-    public Product getProduct(Integer productId){
+    public Product getProductById(Integer productId){
         try{
             return productMapper.selectById(productId);
         }catch (Exception e){

@@ -29,7 +29,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
     private  final  AddressMapper addressMapper;
 
 
-    public Address addAddress(AddressDto addressDto) {
+    public Boolean addAddress(AddressDto addressDto) {
         try{
             Address address = new Address()
                             .setUserId(addressDto.getUserId())
@@ -41,7 +41,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
             if(!save(address)){
                 throw new BusinessException(ResultEnum.ADDRESS_ADD_ERROR);
             }
-            return address;
+            return true;
         }catch (BusinessException e){
             throw e;
         }catch (Exception e) {
@@ -87,7 +87,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
 
     }
 
-    public List<Address> getAddress(Integer userId){
+    public List<Address> getAddressList(Integer userId){
         try{
             LambdaQueryWrapper<Address> address=  new LambdaQueryWrapper<Address>()
                     .eq(Address::getUserId, userId);

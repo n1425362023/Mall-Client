@@ -1,5 +1,6 @@
 package org.ysu.mall.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
@@ -47,7 +48,7 @@ public class ProductController {
         }
 
         @PostMapping("/update")
-        public ApiResponse<?> updateProduct(@RequestBody ProductDto productDto) {
+        public ApiResponse<?> updateProduct(@RequestBody @Valid ProductDto productDto) {
             try{
                 if(categoryService.getCategoryById(productDto.getCategoryId())==null){
                     throw new BusinessException(ResultEnum.CATEGORY_NOT_FOUND);
@@ -65,7 +66,7 @@ public class ProductController {
         @GetMapping("/get/{productId}")
         public ApiResponse<?> getProduct(@PathVariable("productId") Integer productId) {
             try{
-                return ApiResponse.success(productService.getProduct(productId));
+                return ApiResponse.success(productService.getProductById(productId));
             }catch (BusinessException e) {
                 return ApiResponse.error(e.getCode());
             }

@@ -12,7 +12,7 @@ public class CartDto {
     /**
      *
      */
-    @NotNull(message = "The shopping cart id cannot be empty")
+
     private Integer cartId;
 
     /**
@@ -37,6 +37,6 @@ public class CartDto {
      * 是否选中
      */
     @NotNull(message = "The selected status cannot be empty")
-    private Integer selected;
+    private Boolean selected;
 
 }
