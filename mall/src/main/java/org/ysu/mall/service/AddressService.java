@@ -19,4 +19,6 @@ public interface AddressService extends IService<Address> {
     Address updateAddress(AddressDto addressDto);
 
     List<Address> getAddressList(Integer addressId);
+
+    List<Address> getAllAddresses();
 }

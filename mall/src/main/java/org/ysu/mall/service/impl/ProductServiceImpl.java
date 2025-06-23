@@ -105,8 +105,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品查询失败");
         }
     }
+
+    @Override
+    public List<Product> listAll() {
+        try {
+            return productMapper.selectList(new LambdaQueryWrapper<>());
+        } catch (Exception e) {
+            log.error("Error fetching all products: {}", e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取所有商品失败");
+        }
+    }
 }
-
-
-
-

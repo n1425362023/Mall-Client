@@ -19,4 +19,6 @@ public interface CartService extends IService<Cart> {
     Boolean updateCart(CartDto cartDto);
 
     List<Cart> getCartList(Integer userId);
+
+    List<Cart> listAllCarts();
 }

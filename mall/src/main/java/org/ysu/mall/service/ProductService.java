@@ -21,4 +21,6 @@ public interface ProductService extends IService<Product> {
     Product getProductById(Integer productId);
 
     List<Product> getProductList(Integer categoryId);
+
+    List<Product> listAll();
 }

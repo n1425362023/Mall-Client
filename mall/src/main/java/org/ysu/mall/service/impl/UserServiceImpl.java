@@ -13,6 +13,8 @@ import org.ysu.mall.mapper.UserMapper;
 import org.ysu.mall.service.UserService;
 import org.ysu.mall.util.Sha256Util;
 
+import java.util.List;
+
 /**
 * @author DELL
 * @description 针对表【user】的数据库操作Service实现
@@ -117,8 +119,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException(ResultEnum.SYSTEM_ERROR, "用户查询失败");
         }
     }
+
+    @Override
+    public List<User> listAll() {
+        return this.list();
+    }
 }
-
-
-
-

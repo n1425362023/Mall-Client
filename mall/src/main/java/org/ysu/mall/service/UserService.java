@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.ysu.mall.domain.dto.UserDto;
 import org.ysu.mall.domain.entity.User;
 
+import java.util.List;
+
 /**
 * @author DELL
 * @description 针对表【user】的数据库操作Service
@@ -21,4 +23,6 @@ public interface UserService extends IService<User> {
     Boolean delete(Integer userId);
 
     User getUserById(Integer userId);
+
+    List<User> listAll();
 }

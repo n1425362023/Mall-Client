@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.entity.User;
+import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.service.UserService;
 
 import java.util.List;
@@ -16,53 +17,53 @@ public class AdminUserController {
 
     // 查询所有用户
     @GetMapping
-    public ApiResponse<List<User>> listUsers() {
+    public ApiResponse<?> listUsers() {
         List<User> users = userService.listAll();
         return ApiResponse.success(users);
     }
 
     // 根据ID获取用户信息
     @GetMapping("/{id}")
-    public ApiResponse<User> getUserById(@PathVariable Long id) {
+    public ApiResponse<?> getUserById(@PathVariable Integer id) {
         User user = userService.getById(id);
         if (user != null) {
             return ApiResponse.success(user);
         } else {
-            return ApiResponse.fail(404, "用户不存在");
+            return ApiResponse.error(ResultEnum.USER_NOT_FOUND);
         }
     }
 
     // 添加用户
     @PostMapping
-    public ApiResponse<Void> addUser(@RequestBody User user) {
+    public ApiResponse<?> addUser(@RequestBody User user) {
         boolean created = userService.save(user);
         if (created) {
             return ApiResponse.success();
         } else {
-            return ApiResponse.fail(400, "添加用户失败");
+            return ApiResponse.error(ResultEnum.USER_NOT_FOUND);
         }
     }
 
     // 更新用户
     @PutMapping("/{id}")
-    public ApiResponse<Void> updateUser(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
+    public ApiResponse<?> updateUser(@PathVariable Integer id, @RequestBody User user) {
+        user.setUserId(id);
         boolean updated = userService.updateById(user);
         if (updated) {
             return ApiResponse.success();
         } else {
-            return ApiResponse.fail(400, "更新用户失败");
+            return ApiResponse.error(ResultEnum.USER_NOT_FOUND);
         }
     }
 
     // 删除用户
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteUser(@PathVariable Long id) {
+    public ApiResponse<?> deleteUser(@PathVariable Integer id) {
         boolean deleted = userService.removeById(id);
         if (deleted) {
             return ApiResponse.success();
         } else {
-            return ApiResponse.fail(400, "删除用户失败");
+            return ApiResponse.error(ResultEnum.USER_NOT_FOUND);
         }
     }
 }

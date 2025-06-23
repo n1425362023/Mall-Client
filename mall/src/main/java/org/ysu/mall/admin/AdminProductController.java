@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.entity.Product;
+import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.service.ProductService;
 
 import java.util.List;
@@ -15,49 +16,49 @@ public class AdminProductController {
     private ProductService productService;
 
     @GetMapping
-    public ApiResponse<List<Product>> listAllProducts() {
+    public ApiResponse<?> listAllProducts() {
         List<Product> products = productService.listAll();
         return ApiResponse.success(products);
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Product> getProduct(@PathVariable Long id) {
+    public ApiResponse<?> getProduct(@PathVariable Long id) {
         Product product = productService.getById(id);
         if (product != null) {
             return ApiResponse.success(product);
         } else {
-            return ApiResponse.fail(404, "商品不存在");
+            return ApiResponse.error(ResultEnum.NOT_FOUND);
         }
     }
 
     @PostMapping
-    public ApiResponse<Void> addProduct(@RequestBody Product product) {
+    public ApiResponse<?> addProduct(@RequestBody Product product) {
         boolean created = productService.save(product);
         if (created) {
             return ApiResponse.success();
         } else {
-            return ApiResponse.fail(400, "添加商品失败");
+            return ApiResponse.error(ResultEnum.PRODUCT_ADD_ERROR);
         }
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Void> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        product.setId(id);
+    public ApiResponse<?> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
+        product.setProductId(id);
         boolean updated = productService.updateById(product);
         if (updated) {
             return ApiResponse.success();
         } else {
-            return ApiResponse.fail(400, "更新商品失败");
+            return ApiResponse.error(ResultEnum.PRODUCT_UPDATE_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteProduct(@PathVariable Long id) {
+    public ApiResponse<?> deleteProduct(@PathVariable Long id) {
         boolean deleted = productService.removeById(id);
         if (deleted) {
             return ApiResponse.success();
         } else {
-            return ApiResponse.fail(400, "删除商品失败");
+            return ApiResponse.error(ResultEnum.PRODUCT_DELETE_ERROR);
         }
     }
 }

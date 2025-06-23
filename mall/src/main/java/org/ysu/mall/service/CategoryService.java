@@ -21,4 +21,6 @@ public interface CategoryService extends IService<Category> {
     List<Category> getAllCategory();
 
     Category getCategoryById(Integer categoryId);
+
+    List<Category> listAllCategories();
 }

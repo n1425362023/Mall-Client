@@ -97,6 +97,14 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         }
     }
 
+    public List<Address> getAllAddresses() {
+        try {
+            return addressMapper.selectList(null);
+        } catch (Exception e) {
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取所有地址失败");
+        }
+    }
+
 }
 
 

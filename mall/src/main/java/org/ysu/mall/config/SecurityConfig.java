@@ -1,4 +1,4 @@
-package org.ysu.mall.common;
+package org.ysu.mall.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

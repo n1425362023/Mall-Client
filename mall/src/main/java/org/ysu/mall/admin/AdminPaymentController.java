@@ -37,7 +37,7 @@ public class AdminPaymentController {
      */
     @GetMapping("/byStatus")
     public ApiResponse<List<Payment>> getPaymentsByStatus(@RequestParam String status) {
-        List<Payment> payments = paymentService.getByStatus(status);
+        List<Payment> payments = paymentService.getByStatus(Integer.valueOf(status));
         return ApiResponse.success(payments);
     }
 }

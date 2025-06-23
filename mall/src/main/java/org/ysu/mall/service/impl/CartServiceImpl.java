@@ -24,7 +24,9 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor
 @Slf4j
-public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements CartService {
+public class
+
+CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements CartService {
     private final  CartMapper cartMapper;
 
     public Boolean addCart(CartDto cartDto){
@@ -83,6 +85,14 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements Ca
             return cartMapper.selectList(cart);
         } catch (Exception e) {
             throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取购物车列表失败");
+        }
+    }
+
+    public List<Cart> listAllCarts() {
+        try {
+            return cartMapper.selectList(new LambdaQueryWrapper<>());
+        } catch (Exception e) {
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取所有购物车失败");
         }
     }
 }

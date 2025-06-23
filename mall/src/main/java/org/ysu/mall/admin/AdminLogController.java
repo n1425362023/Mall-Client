@@ -1,11 +1,12 @@
 package org.ysu.mall.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
+import org.ysu.mall.domain.entity.AdminLog;
+import org.ysu.mall.service.AdminLogService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/log")

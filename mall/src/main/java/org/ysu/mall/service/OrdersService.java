@@ -1,6 +1,12 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.List;
+
+import org.ysu.mall.domain.dto.OmsMoneyInfoParam;
+import org.ysu.mall.domain.dto.OmsOrderDetail;
+import org.ysu.mall.domain.dto.OmsReceiverInfoParam;
+import org.ysu.mall.domain.dto.OrderDeliveryParam;
 import org.ysu.mall.domain.entity.Orders;
 
 /**
@@ -9,5 +15,18 @@ import org.ysu.mall.domain.entity.Orders;
 * @createDate 2025-06-17 09:52:36
 */
 public interface OrdersService extends IService<Orders> {
-
+    // 批量发货
+    int delivery(List<OrderDeliveryParam> deliveryParamList);
+    // 批量关闭订单
+    int close(List<Long> ids, String note);
+    // 批量删除订单
+    int delete(List<Long> ids);
+    // 获取订单详情
+    OmsOrderDetail detail(Long id);
+    // 更新收货人信息
+    int updateReceiverInfo(OmsReceiverInfoParam receiverInfoParam);
+    // 更新金额信息
+    int updateMoneyInfo(OmsMoneyInfoParam moneyInfoParam);
+    // 更新订单备���
+    int updateNote(Long id, String note, Integer status);
 }
