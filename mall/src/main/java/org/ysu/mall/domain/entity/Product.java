@@ -10,6 +10,7 @@ import java.util.List;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.ysu.mall.enums.ProductStatus;
 
 /**
  * 
@@ -54,12 +55,12 @@ public class Product {
     /**
      * 主图URL
      */
-    private List<String> mainImages;
+    private String mainImages;
 
     /**
      * 子图URL集合(JSON格式)
      */
-    private List<String> subImages;
+    private String subImages;
 
     /**
      * 商品详情
@@ -69,7 +70,7 @@ public class Product {
     /**
      * 状态
      */
-    private Object status;
+    private ProductStatus status;
 
     /**
      * 

@@ -5,17 +5,17 @@
 <mapper namespace="org.ysu.mall.mapper.ProductMapper">
 
     <resultMap id="BaseResultMap" type="org.ysu.mall.domain.entity.Product">
-            <id property="productId" column="product_id" jdbcType="INTEGER"/>
-            <result property="productName" column="product_name" jdbcType="VARCHAR"/>
-            <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
-            <result property="price" column="price" jdbcType="DECIMAL"/>
-            <result property="stock" column="stock" jdbcType="INTEGER"/>
-            <result property="mainImages" column="main_images" jdbcType="VARCHAR"/>
-            <result property="subImages" column="sub_images" jdbcType="VARCHAR"/>
-            <result property="detail" column="detail" jdbcType="VARCHAR"/>
-            <result property="status" column="status" jdbcType="OTHER"/>
-            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
-            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+        <id property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="stock" column="stock" jdbcType="INTEGER"/>
+        <result property="mainImages" column="main_images" jdbcType="VARCHAR"/>
+        <result property="subImages" column="sub_images" jdbcType="VARCHAR"/>
+        <result property="detail" column="detail" jdbcType="VARCHAR"/>
+        <result property="status" column="status"/> <!-- ✅ 修复了 -->
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">

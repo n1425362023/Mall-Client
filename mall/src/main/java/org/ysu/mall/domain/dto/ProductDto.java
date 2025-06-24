@@ -45,12 +45,12 @@ public class ProductDto {
     /**
      * 主图URL
      */
-    private List<MultipartFile> mainImages;
+    private String mainImages;
 
     /**
      * 子图URL集合(JSON格式)
      */
-    private List<MultipartFile> subImages;
+    private String subImages;
 
     /**
      * 商品详情

@@ -35,8 +35,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
                     setProductName(productDto.getProductName())
                     .setPrice(productDto.getPrice())
                     .setStock(productDto.getStock())
-                    .setMainImages(fileUtil.uploadFiles(productDto.getMainImages()))
-                    .setSubImages(fileUtil.uploadFiles(productDto.getSubImages()))
+                    .setMainImages(productDto.getMainImages())
+                    .setSubImages(productDto.getSubImages())
                     .setDetail(productDto.getDetail())
                     .setStatus(productDto.getStatus());
             if(!save(product)){
@@ -52,8 +52,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     public Boolean deleteProduct(Integer productId){
         try{
-            fileUtil.deleteFilesByUrls(productMapper.selectById(productId).getMainImages());
-            fileUtil.deleteFilesByUrls(productMapper.selectById(productId).getSubImages());
+            Product product = productMapper.selectById(productId);
+            fileUtil.deleteFilesByUrls(List.of(product.getMainImages()));
+            fileUtil.deleteFilesByUrls(List.of(product.getSubImages()));
             if(!removeById(productId)){
                 throw new BusinessException(ResultEnum.PRODUCT_DELETE_ERROR);
             }
@@ -71,8 +72,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
                     .setProductName(productDto.getProductName())
                     .setPrice(productDto.getPrice())
                     .setStock(productDto.getStock())
-                    .setMainImages(fileUtil.uploadFiles(productDto.getMainImages()))
-                    .setSubImages(fileUtil.uploadFiles(productDto.getSubImages()))
+                    .setMainImages(productDto.getMainImages())
+                    .setSubImages(productDto.getSubImages())
                     .setDetail(productDto.getDetail())
                     .setStatus(productDto.getStatus());
             if(!updateById(product)){
