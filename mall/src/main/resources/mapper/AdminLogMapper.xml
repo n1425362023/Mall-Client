@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ysu.mall.mapper.AdminLogMapper">
 
-    <resultMap id="BaseResultMap" type="org.ysu.mall.domain.entity.AdminLog">
+    <resultMap id="BaseResultMap" type="org.ysu.mall.domain.entity.Logs">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="adminId" column="admin_id" jdbcType="BIGINT"/>
         <result property="action" column="action" jdbcType="VARCHAR"/>
