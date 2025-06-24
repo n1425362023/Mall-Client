@@ -10,13 +10,22 @@ spring:
     password: 12345678
     type: com.alibaba.druid.pool.DruidDataSource
 
-
+security:
+  enabled: true
 
 minio:
   endpoint: http://39.107.238.93:9000
   accessKey: admin
   secretKey: 12345678
   bucketName: images
+
+springdoc:
+  api-docs:
+    enabled: true # 开启OpenApi接口
+    path: /v3/api-docs  # 自定义路径，默认为 "/v3/api-docs"
+  swagger-ui:
+    enabled: true # 开启swagger界面，依赖OpenApi，需要OpenApi同时开启
+    path: /swagger-ui/index.html # 自定义路径，默认为"/swagger-ui/index.html"
 
 
 mybatis:

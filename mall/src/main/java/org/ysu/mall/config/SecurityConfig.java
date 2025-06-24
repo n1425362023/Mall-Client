@@ -36,9 +36,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // 禁用CSRF
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/login").permitAll()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .anyRequest().authenticated()
+//                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // 放开swagger访问权限
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults()) // 基本认证

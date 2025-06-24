@@ -7,7 +7,7 @@ import java.util.Map;
 public class AuthController {
 
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public Map<String, String> login(@RequestParam String username, @RequestParam String password) {
         // 这里应使用认证逻辑 + 生成JWT，示例直接返回假 token
         return Map.of("token", "fake-jwt-token-for-" + username);
