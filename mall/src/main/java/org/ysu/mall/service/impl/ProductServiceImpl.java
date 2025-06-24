@@ -35,8 +35,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
                     setProductName(productDto.getProductName())
                     .setPrice(productDto.getPrice())
                     .setStock(productDto.getStock())
-                    .setMainImages(productDto.getMainImages())
-                    .setSubImages(productDto.getSubImages())
                     .setDetail(productDto.getDetail())
                     .setStatus(productDto.getStatus());
             if(!save(product)){
@@ -53,8 +51,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public Boolean deleteProduct(Integer productId){
         try{
             Product product = productMapper.selectById(productId);
-            fileUtil.deleteFilesByUrls(List.of(product.getMainImages()));
-            fileUtil.deleteFilesByUrls(List.of(product.getSubImages()));
             if(!removeById(productId)){
                 throw new BusinessException(ResultEnum.PRODUCT_DELETE_ERROR);
             }
@@ -72,8 +68,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
                     .setProductName(productDto.getProductName())
                     .setPrice(productDto.getPrice())
                     .setStock(productDto.getStock())
-                    .setMainImages(productDto.getMainImages())
-                    .setSubImages(productDto.getSubImages())
                     .setDetail(productDto.getDetail())
                     .setStatus(productDto.getStatus());
             if(!updateById(product)){

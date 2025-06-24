@@ -42,9 +42,15 @@ public enum ResultEnum {
     PRODUCT_UPDATE_ERROR(4025, "商品更新失败"),
     PRODUCT_NOT_FOUND(4026, "商品不存在"),
 
-    CART_ADD_ERROR(4026, "购物车添加失败"),
-    CART_DELETE_ERROR(4027, "购物车删除失败"),
-    CART_UPDATE_ERROR(4028, "购物车更新失败"),
+    CART_ADD_ERROR(4027, "购物车添加失败"),
+    CART_DELETE_ERROR(4028, "购物车删除失败"),
+    CART_UPDATE_ERROR(4029, "购物车更新失败"),
+
+    ProductMainImages_ADD_ERROR(4030, "商品主图添加失败"),
+    ProductMainImages_DELETE_ERROR(4031, "商品主图删除失败"),
+    ProductMainImages_UPDATE_ERROR(4032, "商品主图更新失败"),
+    ProductMainImages_NOT_FOUND(4033, "商品主图不存在"),
+
 
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),

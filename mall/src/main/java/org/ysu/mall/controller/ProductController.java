@@ -24,11 +24,9 @@ public class ProductController {
                 if(categoryService.getCategoryById(productDto.getCategoryId())==null){
                     throw new BusinessException(ResultEnum.CATEGORY_NOT_FOUND);
                 }
-                if(productService.addProduct(productDto)){
-                   return  ApiResponse.success(ResultEnum.SUCCESS);
-                }else{
-                   return ApiResponse.error(ResultEnum.PRODUCT_ADD_ERROR);
-                }
+                return productService.addProduct(productDto)
+                        ? ApiResponse.success(ResultEnum.SUCCESS)
+                        : ApiResponse.error(ResultEnum.PRODUCT_ADD_ERROR);
             }catch (BusinessException e) {
                 return ApiResponse.error(e.getCode());
             }
@@ -37,11 +35,9 @@ public class ProductController {
         @DeleteMapping("/delete/{productId}")
         public ApiResponse<?> deleteProduct(@PathVariable("productId") Integer productId) {
             try{
-                if(productService.deleteProduct(productId)){
-                    return ApiResponse.success(ResultEnum.SUCCESS);
-                }else{
-                    return ApiResponse.error(ResultEnum.PRODUCT_DELETE_ERROR);
-                }
+                return productService.deleteProduct(productId)
+                        ? ApiResponse.success(ResultEnum.SUCCESS)
+                        : ApiResponse.error(ResultEnum.PRODUCT_DELETE_ERROR);
             }catch (BusinessException e) {
                 return ApiResponse.error(e.getCode());
             }
@@ -53,11 +49,9 @@ public class ProductController {
                 if(categoryService.getCategoryById(productDto.getCategoryId())==null){
                     throw new BusinessException(ResultEnum.CATEGORY_NOT_FOUND);
                 }
-                if(productService.updateProduct(productDto)){
-                    return ApiResponse.success(ResultEnum.SUCCESS);
-                }else{
-                    return ApiResponse.error(ResultEnum.PRODUCT_UPDATE_ERROR);
-                }
+                return productService.updateProduct(productDto)
+                        ? ApiResponse.success(ResultEnum.SUCCESS)
+                        : ApiResponse.error(ResultEnum.PRODUCT_UPDATE_ERROR);
             }catch (BusinessException e) {
                 return ApiResponse.error(e.getCode());
             }

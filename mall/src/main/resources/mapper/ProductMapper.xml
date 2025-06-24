@@ -10,8 +10,6 @@
         <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
         <result property="price" column="price" jdbcType="DECIMAL"/>
         <result property="stock" column="stock" jdbcType="INTEGER"/>
-        <result property="mainImages" column="main_images" jdbcType="VARCHAR"/>
-        <result property="subImages" column="sub_images" jdbcType="VARCHAR"/>
         <result property="detail" column="detail" jdbcType="VARCHAR"/>
         <result property="status" column="status"/> <!-- ✅ 修复了 -->
         <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
