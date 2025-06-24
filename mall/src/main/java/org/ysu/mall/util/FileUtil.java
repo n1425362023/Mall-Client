@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.ysu.mall.config.MinioConfig;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +23,7 @@ public class FileUtil {
         this.minioConfig = minioConfig;
     }
 
-    @PostConstruct
+
     public void init() {
         this.minioClient = minioConfig.minioClient();
     }
