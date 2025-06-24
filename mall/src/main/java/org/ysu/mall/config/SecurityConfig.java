@@ -41,29 +41,29 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable) // 禁用CSRF
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // 启用CORS配置
+                .csrf(AbstractHttpConfigurer::disable) // ✅ 禁用 CSRF
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ 开启 CORS 支持
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/user/register/**", "/user/login/**").permitAll() // ✅ 注册接口放行
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // 放开swagger访问权限
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults()) // 基本认证
+                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*")); // 允许所有来源，生产环境应更严格
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 允许的HTTP方法
-        configuration.setAllowedHeaders(List.of("*")); // 允许所有头
-        configuration.setAllowCredentials(true); // 允许凭据
-        configuration.setMaxAge(3600L); // 预检请求的缓存时间
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:8081")); // ✅ 用 allowedOriginPatterns 替代 allowedOrigins
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true); // ✅ 与 patterns 一起合法
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // 对所有路径应用CORS配置
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 

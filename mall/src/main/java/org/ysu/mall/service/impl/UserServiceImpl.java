@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     public User login(String username, String password){
-        if(lambdaQuery().eq(null != username, User::getUsername, username).exists()){
+        if(!lambdaQuery().eq(null != username, User::getUsername, username).exists()){
             throw new BusinessException(ResultEnum.USER_NOT_FOUND);
         }
         try{

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.ysu.mall.enums.Role;
+import org.ysu.mall.validationGroups.LoginGroup;
 import org.ysu.mall.validationGroups.ResetPasswoedGroup;
 
 @Data
@@ -17,13 +18,13 @@ public class UserDto {
     /**
      * 用户名
      */
-    @NotBlank(message = "Username cannot be empty" )
+    @NotBlank(message = "Username cannot be empty" ,groups = {LoginGroup.class})
     private String username;
 
     /**
      * 加密密码
      */
-    @NotBlank(message = "Password cannot be empty" ,groups = {ResetPasswoedGroup.class})
+    @NotBlank(message = "Password cannot be empty" ,groups = {LoginGroup.class,ResetPasswoedGroup.class})
     private String password;
 
 

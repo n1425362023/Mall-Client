@@ -12,6 +12,7 @@ import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.service.UserService;
 import org.ysu.mall.util.JwtUtil;
+import org.ysu.mall.validationGroups.LoginGroup;
 import org.ysu.mall.validationGroups.ResetPasswoedGroup;
 
 @CrossOrigin
@@ -36,11 +37,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<?> login(@Valid @RequestBody UserDto userDto) {
+    public ApiResponse<?> login(@Validated({LoginGroup.class}) @RequestBody UserDto userDto) {
         try{
             User user = userService.login(userDto.getUsername(), userDto.getPassword());
             user.setToken(JwtUtil.generateToken(user.getUserId(),user.getUsername()));
-            return ApiResponse.success();
+            return ApiResponse.success(user);
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }
