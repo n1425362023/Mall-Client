@@ -3,10 +3,7 @@ package org.ysu.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
-import org.ysu.mall.domain.dto.OmsMoneyInfoParam;
-import org.ysu.mall.domain.dto.OmsOrderDetail;
-import org.ysu.mall.domain.dto.OmsReceiverInfoParam;
-import org.ysu.mall.domain.dto.OrderDeliveryParam;
+import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
 
 /**
@@ -27,6 +24,15 @@ public interface OrdersService extends IService<Orders> {
     int updateReceiverInfo(OmsReceiverInfoParam receiverInfoParam);
     // 更新金额信息
     int updateMoneyInfo(OmsMoneyInfoParam moneyInfoParam);
-    // 更新订单备���
+    // 更新订单备注
     int updateNote(Long id, String note, Integer status);
+    // 获取订单列表
+    List<Orders> listOrders(OrdersDto ordersDto);
+    /**
+     * 添加订单
+     *
+     * @param ordersDto 订单数据传输对象
+     * @return 是否添加成功
+     */
+    boolean addOrder(OrdersDto ordersDto);
 }

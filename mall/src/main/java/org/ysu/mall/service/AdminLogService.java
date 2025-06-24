@@ -1,10 +1,11 @@
 package org.ysu.mall.service;
 
 import java.util.List;
-import org.ysu.mall.domain.entity.AdminLog;
+import org.ysu.mall.domain.entity.Logs;
+import org.ysu.mall.domain.entity.Logs;
 
 public interface AdminLogService {
-    List<AdminLog> getAllLogs();
-    List<AdminLog> getLogsByAdminId(Long adminId);
-    List<AdminLog> getLogsByAction(String action);
+    List<Logs> getAllLogs();
+    List<Logs> getLogsByAdminId(Long adminId);
+    List<Logs> getLogsByAction(String action);
 }

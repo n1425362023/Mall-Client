@@ -9,26 +9,27 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 
- * @TableName cart
+ * Cart
+ *
+ * 购物车实体类，���于存储用户的购物车信息。
  */
 @TableName(value ="cart")
 @Data
 @Accessors(chain = true)
 public class Cart {
     /**
-     * 
+     * 购物车ID
      */
     @TableId(type = IdType.AUTO)
     private Integer cartId;
 
     /**
-     * 
+     * 用户ID
      */
     private Integer userId;
 
     /**
-     * 
+     * 商品ID
      */
     private Integer productId;
 
@@ -43,7 +44,7 @@ public class Cart {
     private Boolean selected;
 
     /**
-     * 
+     * 创建时间
      */
     private Date createdAt;
 }

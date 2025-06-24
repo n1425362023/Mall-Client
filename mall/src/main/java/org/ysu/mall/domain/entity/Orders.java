@@ -39,6 +39,21 @@ public class Orders {
     private BigDecimal totalAmount;
 
     /**
+     * 运费金额
+     */
+    private BigDecimal freightAmount;
+
+    /**
+     * 折扣金额
+     */
+    private BigDecimal discountAmount;
+
+    /**
+     * 支付金额
+     */
+    private BigDecimal payAmount;
+
+    /**
      * 
      */
     private Object status;
@@ -63,60 +78,54 @@ public class Orders {
      */
     private Date createdAt;
 
-    // 添加缺失的 setter 方法
-    public void setDeliveryCompany(String deliveryCompany) {
-        this.deliveryCompany = deliveryCompany;
-    }
+    /**
+     * 订单备注
+     */
+    private String note;
 
-    public void setDeliverySn(String deliverySn) {
-        this.deliverySn = deliverySn;
-    }
+    /**
+     * 收货人姓名
+     */
+    private String receiverName;
 
-    public void setNote(String note) {
-        this.note = note;
-    }
+    /**
+     * 收货人电话
+     */
+    private String receiverPhone;
 
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
+    /**
+     * 收货人邮编
+     */
+    private String receiverPostCode;
 
-    public void setReceiverPhone(String receiverPhone) {
-        this.receiverPhone = receiverPhone;
-    }
+    /**
+     * 收货人省份
+     */
+    private String receiverProvince;
 
-    public void setReceiverPostCode(String receiverPostCode) {
-        this.receiverPostCode = receiverPostCode;
-    }
+    /**
+     * 收货人城市
+     */
+    private String receiverCity;
 
-    public void setReceiverProvince(String receiverProvince) {
-        this.receiverProvince = receiverProvince;
-    }
+    /**
+     * 收货人区域
+     */
+    private String receiverRegion;
 
-    public void setReceiverCity(String receiverCity) {
-        this.receiverCity = receiverCity;
-    }
+    /**
+     * 收货人详细地址
+     */
+    private String receiverDetailAddress;
 
-    public void setReceiverRegion(String receiverRegion) {
-        this.receiverRegion = receiverRegion;
-    }
+    /**
+     * 物流公司
+     */
+    private String deliveryCompany;
 
-    public void setReceiverDetailAddress(String receiverDetailAddress) {
-        this.receiverDetailAddress = receiverDetailAddress;
-    }
+    /**
+     * 物流单号
+     */
+    private String deliverySn;
 
-    public void setFreightAmount(BigDecimal freightAmount) {
-        this.freightAmount = freightAmount;
-    }
-
-    public void setDiscountAmount(BigDecimal discountAmount) {
-        this.discountAmount = discountAmount;
-    }
-
-    public void setPayAmount(BigDecimal payAmount) {
-        this.payAmount = payAmount;
-    }
-
-    public String getNote() {
-        return this.note;
-    }
 }

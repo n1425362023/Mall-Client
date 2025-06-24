@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 
@@ -13,6 +14,7 @@ import lombok.Data;
  */
 @TableName(value ="order_item")
 @Data
+@Accessors(chain = true)
 public class OrderItem {
     /**
      * 

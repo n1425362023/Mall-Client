@@ -18,3 +18,7 @@ minio:
   secretKey: 12345678
   bucketName: images
 
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.ysu.mall.domain.entity

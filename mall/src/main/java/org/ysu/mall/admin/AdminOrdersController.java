@@ -1,32 +1,46 @@
 package org.ysu.mall.admin;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
-import org.ysu.mall.domain.dto.OmsMoneyInfoParam;
-import org.ysu.mall.domain.dto.OmsOrderDetail;
-import org.ysu.mall.domain.dto.OmsReceiverInfoParam;
-import org.ysu.mall.domain.dto.OrderDeliveryParam;
+import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.service.OrdersService;
 
 import java.util.List;
 
+@CrossOrigin
+@RequiredArgsConstructor
 @RestController
-@Tag(name = "AdminOrdersController", description = "订单管理")
-@RequestMapping("/order")
+@Tag(name = "AdminOrdersController", description = "管理员订单管理")
+@RequestMapping("/admin/order")
 public class AdminOrdersController {
     @Autowired
     private OrdersService ordersService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<List<Orders>> list() {
-        List<Orders> orderList = ordersService.list();
+    @Operation(summary = "获取所有商品信息", description = "获取所有商品信息")
+    public ApiResponse<List<Orders>> list(@RequestBody OrdersDto ordersDto) {
+        List<Orders> orderList = ordersService.listOrders(ordersDto);
         return ApiResponse.success(orderList);
     }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    @Operation(summary = "添加订单", description = "管理员添加订单")
+    public ApiResponse<?> addOrder(@RequestBody OrdersDto ordersDto) {
+        boolean isAdded = ordersService.addOrder(ordersDto);
+        if (isAdded) {
+            return ApiResponse.success("订单添加成功");
+        }
+        return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
+    }
+
 
     @RequestMapping(value = "/update/delivery", method = RequestMethod.POST)
     @ResponseBody
@@ -59,12 +73,6 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ApiResponse<?> detail(@PathVariable Long id) {
-        OmsOrderDetail orderDetailResult = ordersService.detail(id);
-        return ApiResponse.success(orderDetailResult);
-    }
 
     @RequestMapping(value = "/update/receiverInfo", method = RequestMethod.POST)
     @ResponseBody
@@ -97,5 +105,6 @@ public class AdminOrdersController {
         }
         return ApiResponse.error(org.ysu.mall.enums.ResultEnum.SYSTEM_ERROR);
     }
-}
 
+
+}

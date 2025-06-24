@@ -1,17 +1,18 @@
 package org.ysu.mall.admin;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.entity.Category;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.service.CategoryService;
-
 import java.util.List;
 
-import static org.ysu.mall.enums.ResultEnum.*;
 
+@CrossOrigin
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/category")
 public class AdminCategoryController {

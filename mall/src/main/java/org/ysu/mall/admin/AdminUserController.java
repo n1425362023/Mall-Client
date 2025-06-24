@@ -1,5 +1,6 @@
 package org.ysu.mall.admin;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
@@ -9,6 +10,8 @@ import org.ysu.mall.service.UserService;
 
 import java.util.List;
 
+@CrossOrigin
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/user")
 public class AdminUserController {

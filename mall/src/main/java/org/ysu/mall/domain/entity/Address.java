@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Address {
     /**
-     * 
+     * 地址ID
      */
     @TableId(type = IdType.AUTO)
     private Integer addressId;

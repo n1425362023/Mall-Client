@@ -1,5 +1,6 @@
 package org.ysu.mall.admin;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
@@ -8,6 +9,8 @@ import org.ysu.mall.service.PaymentService;
 
 import java.util.List;
 
+@CrossOrigin
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/payment")
 public class AdminPaymentController {
