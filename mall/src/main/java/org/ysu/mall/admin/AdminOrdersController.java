@@ -17,7 +17,6 @@ import java.util.List;
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
-@Tag(name = "AdminOrdersController", description = "管理员订单管理")
 @RequestMapping("/admin/orders")
 public class AdminOrdersController {
     @Autowired
@@ -25,7 +24,6 @@ public class AdminOrdersController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    @Operation(summary = "获取所有订单信息", description = "获取所有订单信息")
     public ApiResponse<List<Orders>> list(@RequestBody OrdersDto ordersDto) {
         List<Orders> orderList = ordersService.listOrders(ordersDto);
         return ApiResponse.success(orderList);
@@ -33,7 +31,6 @@ public class AdminOrdersController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    @Operation(summary = "添加订单", description = "管理员添加订单")
     public ApiResponse<?> addOrder(@RequestBody OrdersDto ordersDto) {
         boolean isAdded = ordersService.addOrder(ordersDto);
         if (isAdded) {
@@ -44,7 +41,6 @@ public class AdminOrdersController {
 
     @RequestMapping(value = "/list/returns", method = RequestMethod.GET)
     @ResponseBody
-    @Operation(summary = "查看所有退货中的订单", description = "管理员查看所有退货中的订单")
     public ApiResponse<List<Orders>> listReturns() {
         List<Orders> returnOrders = ordersService.listOrdersByStatus(OrderEnum.RETURN.getCode());
         return ApiResponse.success(returnOrders);
