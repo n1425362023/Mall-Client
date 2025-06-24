@@ -25,11 +25,9 @@ public class UserController {
     @PostMapping("/register")
     public ApiResponse<?> register(@Valid @RequestBody UserDto userDto) {
         try{
-            if(userService.register(userDto)){
-                return ApiResponse.success(ResultEnum.SUCCESS);
-            }else{
-                return ApiResponse.error(ResultEnum.USER_ADD_ERROR);
-            }
+            return userService.register(userDto)
+                    ? ApiResponse.success(ResultEnum.SUCCESS)
+                    :ApiResponse.error(ResultEnum.USER_ADD_ERROR);
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
 
@@ -41,7 +39,7 @@ public class UserController {
         try{
             User user = userService.login(userDto.getUsername(), userDto.getPassword());
             user.setToken(JwtUtil.generateToken(user.getUserId(),user.getUsername()));
-            return ApiResponse.success(user);
+            return ApiResponse.success(user.getToken());
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }
@@ -61,11 +59,9 @@ public class UserController {
     @PutMapping("/resetPassword")
     public ApiResponse<?> resetPassword(@Validated({ResetPasswoedGroup.class}) @RequestBody UserDto userDto) {
         try{
-            if(userService.resetPassword(userDto.getUserId(), userDto.getPassword())){
-                return ApiResponse.success(ResultEnum.SUCCESS);
-            }else{
-                return ApiResponse.error(ResultEnum.USER_PASSWORD_RESET_FAILED);
-            }
+            return userService.resetPassword(userDto.getUserId(), userDto.getPassword())
+                    ?ApiResponse.success(ResultEnum.SUCCESS)
+                    :ApiResponse.error(ResultEnum.USER_PASSWORD_RESET_FAILED);
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }
@@ -74,11 +70,9 @@ public class UserController {
     @DeleteMapping("/delete")
     public ApiResponse<?> delete(@RequestParam Integer userId) {
         try{
-            if(userService.delete(userId)){
-                return ApiResponse.success(ResultEnum.SUCCESS);
-            }else{
-                return ApiResponse.error(ResultEnum.USER_DELETE_ERROR);
-            }
+            return userService.delete(userId)
+                    ?ApiResponse.success(ResultEnum.SUCCESS)
+                    :ApiResponse.error(ResultEnum.USER_DELETE_ERROR);
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }
