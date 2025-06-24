@@ -11,6 +11,9 @@ import org.ysu.mall.service.CartService;
 import org.ysu.mall.service.ProductService;
 import org.ysu.mall.service.UserService;
 
+/**
+ * 购物车管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -19,6 +22,12 @@ public class CartController {
     private final CartService cartService;
     private final ProductService productService;
     private final UserService userService;
+
+    /**
+     * 添加商品到购物车
+     * @param cartDto
+     * @return
+     */
     @PostMapping("/add")
     public ApiResponse<?> addCart(@RequestBody @Valid CartDto cartDto) {
         try{
@@ -38,6 +47,11 @@ public class CartController {
         }
     }
 
+    /**
+     * 删除购物车中的商品
+     * @param cartId
+     * @return
+     */
     @PostMapping("/delete/{cartId}")
     public ApiResponse<?> deleteCart(@PathVariable @Valid Integer cartId) {
         if(cartService.deleteCart(cartId)){
@@ -47,6 +61,11 @@ public class CartController {
         }
     }
 
+    /**
+     * 更新购物车中的商品数量
+     * @param cartDto
+     * @return
+     */
     @PutMapping("/update")
     public ApiResponse<?> updateCart(@RequestBody @Valid CartDto cartDto) {
         if (userService.getUserById(cartDto.getUserId()) == null) {
@@ -61,6 +80,12 @@ public class CartController {
             return ApiResponse.error(ResultEnum.CART_UPDATE_ERROR);
         }
     }
+
+    /**
+     * 获取用户购物车列表
+     * @param userId
+     * @return
+     */
     @GetMapping("/list/{userId}")
     public ApiResponse<?> getCartList(@PathVariable @Valid Integer userId) {
         try{

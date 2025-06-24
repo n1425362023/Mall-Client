@@ -9,6 +9,9 @@ import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.service.AddressService;
 
+/**
+ * 地址管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -16,6 +19,11 @@ import org.ysu.mall.service.AddressService;
 public class AddressController {
     private final AddressService addressService;
 
+    /**
+     * 添加新地址
+     * @param addressDto
+     * @return
+     */
     @PostMapping("/add")
     public ApiResponse<?> addAddress(@Valid @RequestBody AddressDto addressDto) {
         try{
@@ -29,6 +37,11 @@ public class AddressController {
         }
     }
 
+    /**
+     * 删除地址
+     * @param addressId
+     * @return
+     */
     @DeleteMapping("/delete/{addressId}")
     public ApiResponse<?> deleteAddress(@PathVariable Integer addressId) {
         try {
@@ -42,6 +55,11 @@ public class AddressController {
         }
     }
 
+    /**
+     * 更新地址
+     * @param addressDto
+     * @return
+     */
     @PutMapping("/update")
     public ApiResponse<?> updateAddress(@Valid @RequestBody AddressDto addressDto) {
         try {
@@ -51,6 +69,11 @@ public class AddressController {
         }
     }
 
+    /**
+     * 获取用户地址列表
+     * @param userId
+     * @return
+     */
     @GetMapping("/get/{userId}")
     public ApiResponse<?> getAddress(@PathVariable Integer userId) {
         try{

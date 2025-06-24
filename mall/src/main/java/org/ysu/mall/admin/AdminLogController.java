@@ -9,6 +9,9 @@ import org.ysu.mall.service.AdminLogService;
 
 import java.util.List;
 
+/**
+ * 管理员操作日志控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -18,7 +21,8 @@ public class AdminLogController {
     private AdminLogService adminLogService;
 
     /**
-     * 查询所有操作日志
+     * 获取所有操作日志
+     * @return
      */
     @GetMapping
     public ApiResponse<List<Logs>> getAllLogs() {
@@ -27,7 +31,9 @@ public class AdminLogController {
     }
 
     /**
-     * 根据管理员ID查询日志
+     * 根据管理员ID查询操作日志
+     * @param adminId
+     * @return
      */
     @GetMapping("/byAdmin/{adminId}")
     public ApiResponse<List<Logs>> getLogsByAdmin(@PathVariable Long adminId) {
@@ -37,6 +43,8 @@ public class AdminLogController {
 
     /**
      * 根据操作类型查询日志
+     * @param action
+     * @return
      */
     @GetMapping("/byAction")
     public ApiResponse<List<Logs>> getLogsByAction(@RequestParam String action) {

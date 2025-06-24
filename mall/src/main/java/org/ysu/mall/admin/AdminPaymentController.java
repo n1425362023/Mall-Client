@@ -9,6 +9,9 @@ import org.ysu.mall.service.PaymentService;
 
 import java.util.List;
 
+/**
+ * 管理员支付记录管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -19,6 +22,7 @@ public class AdminPaymentController {
 
     /**
      * 查询所有支付记录
+     * @return
      */
     @GetMapping
     public ApiResponse<List<Payment>> getAllPayments() {
@@ -27,7 +31,9 @@ public class AdminPaymentController {
     }
 
     /**
-     * 根据订单ID查询支付记录
+     * 根据支付ID获取支付记录
+     * @param orderId
+     * @return
      */
     @GetMapping("/byOrder/{orderId}")
     public ApiResponse<Payment> getPaymentByOrderId(@PathVariable Long orderId) {
@@ -36,7 +42,9 @@ public class AdminPaymentController {
     }
 
     /**
-     * 根据支付状态筛选
+     * 根据支付状态获取支付记录
+     * @param status
+     * @return
      */
     @GetMapping("/byStatus")
     public ApiResponse<List<Payment>> getPaymentsByStatus(@RequestParam String status) {
