@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ysu.mall.domain.dto.ProductDto;
@@ -107,12 +105,73 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     }
 
     @Override
-    public List<Product> listAll() {
+    public List<Product> listAll(ProductDto productDto) {
         try {
-            return productMapper.selectList(new LambdaQueryWrapper<>());
+            LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+            if (productDto.getProductName() != null && !productDto.getProductName().isEmpty()) {
+                queryWrapper.like(Product::getProductName, productDto.getProductName());
+            }
+            if (productDto.getPrice() != null) {
+                queryWrapper.eq(Product::getPrice, productDto.getPrice());
+            }
+            if (productDto.getStock() != null) {
+                queryWrapper.eq(Product::getStock, productDto.getStock());
+            }
+            if (productDto.getStatus() != null) {
+                queryWrapper.eq(Product::getStatus, productDto.getStatus());
+            }
+            return productMapper.selectList(queryWrapper);
         } catch (Exception e) {
-            log.error("Error fetching all products: {}", e.getMessage());
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取所有商品失败");
+            log.error("Error fetching products with conditions: {}", e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据条件查询商品失败");
+        }
+    }
+
+    @Override
+    public List<Product> listByCategoryId(Long categoryId) {
+        try {
+            LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Product::getCategoryId, categoryId);
+            return productMapper.selectList(queryWrapper);
+        } catch (Exception e) {
+            log.error("Error fetching products by categoryId {}: {}", categoryId, e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据分类ID查询商品失败");
+        }
+    }
+
+    @Override
+    public List<Product> listByBrand(String brand) {
+        try {
+            LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Product::getBrand, brand);
+            return productMapper.selectList(queryWrapper);
+        } catch (Exception e) {
+            log.error("Error fetching products by brand {}: {}", brand, e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据品牌查询商品失败");
+        }
+    }
+
+    @Override
+    public int countByCategoryId(Long categoryId) {
+        try {
+            LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Product::getCategoryId, categoryId);
+            return Math.toIntExact(productMapper.selectCount(queryWrapper));
+        } catch (Exception e) {
+            log.error("Error counting products by categoryId {}: {}", categoryId, e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "统计分类ID商品数量失败");
+        }
+    }
+
+    @Override
+    public int countByBrand(String brand) {
+        try {
+            LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Product::getBrand, brand);
+            return Math.toIntExact(productMapper.selectCount(queryWrapper));
+        } catch (Exception e) {
+            log.error("Error counting products by brand {}: {}", brand, e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "统计品牌商品数量失败");
         }
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
+import org.ysu.mall.enums.OrderEnum;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.service.OrdersService;
 
@@ -17,14 +18,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Tag(name = "AdminOrdersController", description = "管理员订单管理")
-@RequestMapping("/admin/order")
+@RequestMapping("/admin/orders")
 public class AdminOrdersController {
     @Autowired
     private OrdersService ordersService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    @Operation(summary = "获取所有商品信息", description = "获取所有商品信息")
+    @Operation(summary = "获取所有订单信息", description = "获取所有订单信息")
     public ApiResponse<List<Orders>> list(@RequestBody OrdersDto ordersDto) {
         List<Orders> orderList = ordersService.listOrders(ordersDto);
         return ApiResponse.success(orderList);
@@ -39,6 +40,14 @@ public class AdminOrdersController {
             return ApiResponse.success("订单添加成功");
         }
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
+    }
+
+    @RequestMapping(value = "/list/returns", method = RequestMethod.GET)
+    @ResponseBody
+    @Operation(summary = "查看所有退货中的订单", description = "管理员查看所有退货中的订单")
+    public ApiResponse<List<Orders>> listReturns() {
+        List<Orders> returnOrders = ordersService.listOrdersByStatus(OrderEnum.RETURN.getCode());
+        return ApiResponse.success(returnOrders);
     }
 
 
@@ -99,7 +108,7 @@ public class AdminOrdersController {
     public ApiResponse<?> updateNote(@RequestParam("id") Long id,
                                    @RequestParam("note") String note,
                                    @RequestParam("status") Integer status) {
-        int count = ordersService.updateNote(id, note, status);
+        int count = ordersService.updateNote(id, note, status != null ? OrderEnum.fromCode(status) : null);
         if (count > 0) {
             return ApiResponse.success(count);
         }

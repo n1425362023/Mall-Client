@@ -121,7 +121,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> listAll() {
-        return this.list();
+    public List<User> listAll(String name) {
+        try {
+            return lambdaQuery()
+                    .eq(name != null && !name.isEmpty(), User::getUsername, name)
+                    .list();
+        } catch (Exception e) {
+            log.error("Error fetching users by name: {}", e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据用户名查询用户失败");
+        }
+    }
+
+    @Override
+    public List<String> listDistinctRoles() {
+        try {
+            return lambdaQuery()
+                    .select(User::getRole)
+                    .groupBy(User::getRole)
+                    .list()
+                    .stream()
+                    .map(User::getRole)
+                    .toList();
+        } catch (Exception e) {
+            log.error("Error fetching distinct roles: {}", e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "查询角色种类失败");
+        }
     }
 }

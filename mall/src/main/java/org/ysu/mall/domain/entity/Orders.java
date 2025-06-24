@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.ysu.mall.enums.OrderEnum;
 
 /**
  * 
@@ -56,7 +57,7 @@ public class Orders {
     /**
      * 
      */
-    private Object status;
+    private OrderEnum status;
 
     /**
      * 支付方式

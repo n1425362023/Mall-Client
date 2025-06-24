@@ -22,5 +22,13 @@ public interface ProductService extends IService<Product> {
 
     List<Product> getProductList(Integer categoryId);
 
-    List<Product> listAll();
+    List<Product> listAll(ProductDto productDto);
+
+    List<Product> listByCategoryId(Long categoryId);
+
+    List<Product> listByBrand(String brand);
+
+    int countByCategoryId(Long categoryId);
+
+    int countByBrand(String brand);
 }

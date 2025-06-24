@@ -31,6 +31,12 @@ public class Product {
     private String productName;
 
     /**
+     * 品牌
+     */
+    private String brand;
+
+    /**
+     * 分类ID
      * 分类ID
      */
     private Integer categoryId;

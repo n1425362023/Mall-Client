@@ -24,5 +24,7 @@ public interface UserService extends IService<User> {
 
     User getUserById(Integer userId);
 
-    List<User> listAll();
+    List<User> listAll(String name);
+
+    List<String> listDistinctRoles();
 }

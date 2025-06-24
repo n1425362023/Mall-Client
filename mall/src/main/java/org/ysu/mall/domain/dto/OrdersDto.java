@@ -12,25 +12,21 @@ public class OrdersDto {
     /**
      * 订单号(时间戳+随机数)
      */
-    @NotBlank(message = "The order id cannot be empty")
     private String orderId;
 
     /**
      *
      */
-    @NotNull(message = "The user id cannot be empty")
     private Integer userId;
 
     /**
      *
      */
-    @NotNull(message = "The address id cannot be empty")
     private Integer addressId;
 
     /**
      * 订单总额
      */
-    @NotNull(message = "The total amount cannot be empty")
     private BigDecimal totalAmount;
 
     /**
@@ -47,13 +43,11 @@ public class OrdersDto {
     /**
      * 支付时间
      */
-    @NotBlank(message = "The payment time cannot be empty")
     private Date paymentTime;
 
     /**
      * 发货时间
      */
-    @NotBlank(message = "The delivery time cannot be empty")
     private Date deliveryTime;
 
     /**

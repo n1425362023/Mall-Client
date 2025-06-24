@@ -19,9 +19,9 @@ public class AdminUserController {
     private UserService userService;
 
     // 查询所有用户
-    @GetMapping
-    public ApiResponse<?> listUsers() {
-        List<User> users = userService.listAll();
+    @GetMapping("/list")
+    public ApiResponse<?> listUsers(@RequestParam(required = false) String name) {
+        List<User> users = userService.listAll(name);
         return ApiResponse.success(users);
     }
 
@@ -34,6 +34,12 @@ public class AdminUserController {
         } else {
             return ApiResponse.error(ResultEnum.USER_NOT_FOUND);
         }
+    }
+
+    @GetMapping("/roles")
+    public ApiResponse<?> listDistinctRoles() {
+        List<String> roles = userService.listDistinctRoles();
+        return ApiResponse.success(roles);
     }
 
     // 添加用户

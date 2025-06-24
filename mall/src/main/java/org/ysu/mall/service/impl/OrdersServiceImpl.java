@@ -1,10 +1,14 @@
 package org.ysu.mall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
+import org.ysu.mall.enums.OrderEnum;
+import org.ysu.mall.enums.ResultEnum;
+import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.mapper.OrdersMapper;
 import org.ysu.mall.service.OrdersService;
 
@@ -27,7 +31,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             if (order != null) {
                 order.setDeliveryCompany(param.getDeliveryCompany());
                 order.setDeliverySn(param.getDeliverySn());
-                order.setStatus(2); // 假设状态2表示已发货
+                order.setStatus(OrderEnum.PENDING_RECEIPT); // 假设状态2表示已发货
                 if (this.updateById(order)) {
                     count++;
                 }
@@ -42,7 +46,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         for (Long id : ids) {
             Orders order = this.getById(id);
             if (order != null) {
-                order.setStatus(3); // 假设状态3表示已关闭
+                order.setStatus(OrderEnum.RETURN); // 假设状态3表示已关闭
                 order.setNote(note);
                 if (this.updateById(order)) {
                     count++;
@@ -67,7 +71,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         OmsOrderDetail detail = new OmsOrderDetail();
         detail.setOrderId(order.getOrderId());
         detail.setTotalAmount(order.getTotalAmount());
-        detail.setStatus(order.getStatus() instanceof Integer ? (Integer) order.getStatus() : null);
+        detail.setStatus(order.getStatus() != null ? order.getStatus().getCode() : null);
         detail.setPaymentMethod(order.getPaymentMethod() instanceof Integer ? (Integer) order.getPaymentMethod() : null);
         detail.setCreateTime(order.getCreatedAt());
         detail.setNote(order.getNote());
@@ -106,7 +110,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public int updateNote(Long id, String note, Integer status) {
+    public int updateNote(Long id, String note, OrderEnum status) {
         Orders order = this.getById(id);
         if (order != null) {
             if (note != null && !note.isEmpty()) {
@@ -120,15 +124,34 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Override
     public List<Orders> listOrders(OrdersDto ordersDto) {
-        return this.lambdaQuery()
-            .eq(ordersDto.getOrderId() != null, Orders::getOrderId, ordersDto.getOrderId())
-            .eq(ordersDto.getUserId() != null, Orders::getUserId, ordersDto.getUserId())
-            .eq(ordersDto.getAddressId() != null, Orders::getAddressId, ordersDto.getAddressId())
-            .eq(ordersDto.getTotalAmount() != null, Orders::getTotalAmount, ordersDto.getTotalAmount())
-            .eq(ordersDto.getStatus() != null, Orders::getStatus, ordersDto.getStatus())
-            .eq(ordersDto.getPaymentMethod() != null, Orders::getPaymentMethod, ordersDto.getPaymentMethod())
-            .list();
+        try {
+            LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
+            if (ordersDto.getOrderId() != null) {
+                queryWrapper.eq(Orders::getOrderId, ordersDto.getOrderId());
+            }
+            if (ordersDto.getUserId() != null) {
+                queryWrapper.eq(Orders::getUserId, ordersDto.getUserId());
+            }
+            if (ordersDto.getAddressId() != null) {
+                queryWrapper.eq(Orders::getAddressId, ordersDto.getAddressId());
+            }
+            if (ordersDto.getTotalAmount() != null) {
+                queryWrapper.eq(Orders::getTotalAmount, ordersDto.getTotalAmount());
+            }
+            if (ordersDto.getStatus() != null) {
+                queryWrapper.eq(Orders::getStatus, ordersDto.getStatus());
+            }
+            if (ordersDto.getPaymentMethod() != null) {
+                queryWrapper.eq(Orders::getPaymentMethod, ordersDto.getPaymentMethod());
+            }
+            return this.list(queryWrapper);
+        } catch (Exception e) {
+            log.error("Error fetching orders with conditions: {}", e);
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据条件查询订单失败");
+        }
     }
+
+
 
     @Override
     @Transactional
@@ -138,9 +161,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         order.setUserId(ordersDto.getUserId());
         order.setAddressId(ordersDto.getAddressId());
         order.setTotalAmount(ordersDto.getTotalAmount());
-        order.setStatus(ordersDto.getStatus());
+        order.setStatus(ordersDto.getStatus() instanceof Integer ? OrderEnum.fromCode((Integer) ordersDto.getStatus()) : null);
         order.setPaymentMethod(ordersDto.getPaymentMethod());
         order.setCreatedAt(new Date()); // 假设创建时间为当前时间
         return this.save(order);
+    }
+
+    @Override
+    public List<Orders> listOrdersByStatus(int status) {
+        LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Orders::getStatus, status);
+        return this.list(queryWrapper);
     }
 }

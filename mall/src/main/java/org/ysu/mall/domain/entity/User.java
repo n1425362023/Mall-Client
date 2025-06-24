@@ -32,8 +32,6 @@ public class User {
      */
     private String password;
 
-
-
     /**
      * 手机号
      */
@@ -47,7 +45,7 @@ public class User {
     /**
      * 用户角色
      */
-    private Object role;
+    private String role;
 
     /**
      * 状态(0=禁用,1=正常)

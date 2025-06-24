@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
+import org.ysu.mall.enums.OrderEnum;
 
 /**
 * @author DELL
@@ -25,7 +26,7 @@ public interface OrdersService extends IService<Orders> {
     // 更新金额信息
     int updateMoneyInfo(OmsMoneyInfoParam moneyInfoParam);
     // 更新订单备注
-    int updateNote(Long id, String note, Integer status);
+    int updateNote(Long id, String note, OrderEnum status);
     // 获取订单列表
     List<Orders> listOrders(OrdersDto ordersDto);
     /**
@@ -35,4 +36,7 @@ public interface OrdersService extends IService<Orders> {
      * @return 是否添加成功
      */
     boolean addOrder(OrdersDto ordersDto);
+
+    List<Orders> listOrdersByStatus(int code);
+
 }
