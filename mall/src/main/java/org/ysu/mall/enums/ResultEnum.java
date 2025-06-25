@@ -56,6 +56,11 @@ public enum ResultEnum {
     ProductSubImages_UPDATE_ERROR(4036, "商品副图更新失败"),
     ProductSubImages_NOT_FOUND(4037, "商品副图不存在"),
 
+    ORDER_ADD_ERROR(4038, "订单添加失败"),
+    ORDER_DELETE_ERROR(4039, "订单删除失败"),
+    ORDER_UPDATE_ERROR(4040, "订单更新失败"),
+    ORDER_NOT_FOUND(4041, "订单不存在"),
+
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),
     SERVICE_UNAVAILABLE(503, "服务不可用");

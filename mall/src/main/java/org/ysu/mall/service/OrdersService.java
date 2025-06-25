@@ -3,6 +3,7 @@ package org.ysu.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
 import org.ysu.mall.enums.OrderEnum;
@@ -39,4 +40,7 @@ public interface OrdersService extends IService<Orders> {
 
     List<Orders> listOrdersByStatus(int code);
 
+    Boolean deleteOrderById(String orderId);
+
+    Boolean updateOrder(OrdersDto ordersDto);
 }

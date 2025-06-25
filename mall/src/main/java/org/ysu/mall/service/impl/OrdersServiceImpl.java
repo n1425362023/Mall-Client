@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ysu.mall.domain.dto.*;
 import org.ysu.mall.domain.entity.Orders;
+import org.ysu.mall.domain.entity.Product;
 import org.ysu.mall.enums.OrderEnum;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
@@ -22,6 +23,12 @@ import java.util.List;
  */
 @Service
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
+
+    private final OrdersMapper ordersMapper;
+
+    public OrdersServiceImpl(OrdersMapper ordersMapper) {
+        this.ordersMapper = ordersMapper;
+    }
 
     @Override
     public int delivery(List<OrderDeliveryParam> deliveryParamList) {
@@ -172,5 +179,33 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Orders::getStatus, status);
         return this.list(queryWrapper);
+    }
+
+    public Boolean deleteOrderById(String orderId){
+        try{
+            Orders orders  = ordersMapper.selectById(orderId);
+            if(!removeById(orderId)){
+                throw new BusinessException(ResultEnum.PRODUCT_DELETE_ERROR);
+            }
+            return true;
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品删除失败");
+        }
+    }
+
+    public Boolean updateOrder(OrdersDto ordersDto){
+        try{
+            Orders orders  = ordersMapper.selectById(ordersDto.getOrderId());
+            if(!updateById(orders)){
+                throw new BusinessException(ResultEnum.PRODUCT_UPDATE_ERROR);
+            }
+            return true;
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品更新失败");
+        }
     }
 }

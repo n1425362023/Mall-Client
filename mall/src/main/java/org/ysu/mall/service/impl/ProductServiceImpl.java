@@ -65,6 +65,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public Boolean updateProduct(ProductDto productDto){
         try{
             Product product = new Product()
+                    .setProductId(productDto.getProductId())
                     .setProductName(productDto.getProductName())
                     .setPrice(productDto.getPrice())
                     .setStock(productDto.getStock())

@@ -21,4 +21,6 @@ public interface AddressService extends IService<Address> {
     List<Address> getAddressList(Integer addressId);
 
     List<Address> getAllAddresses();
+
+    Address getAddressById(Integer addressId);
 }

@@ -105,6 +105,13 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         }
     }
 
+    public Address getAddressById(Integer addressId) {
+        try {
+            return addressMapper.selectById(addressId);
+        } catch (Exception e) {
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取地址失败");
+        }
+    }
 }
 
 
