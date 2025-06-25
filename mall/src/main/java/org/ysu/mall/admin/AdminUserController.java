@@ -10,6 +10,9 @@ import org.ysu.mall.service.UserService;
 
 import java.util.List;
 
+/**
+ * 管理员用户管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -18,14 +21,22 @@ public class AdminUserController {
     @Autowired
     private UserService userService;
 
-    // 查询所有用户
+    /**
+     * 查询用户列表
+     * @param name
+     * @return
+     */
     @GetMapping("/list")
     public ApiResponse<?> listUsers(@RequestParam(required = false) String name) {
         List<User> users = userService.listAll(name);
         return ApiResponse.success(users);
     }
 
-    // 根据ID获取用户信息
+    /**
+     * 根据用户ID获取用户信息
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ApiResponse<?> getUserById(@PathVariable Integer id) {
         User user = userService.getById(id);
@@ -36,13 +47,21 @@ public class AdminUserController {
         }
     }
 
+    /**
+     * 获取所有用户角色
+     * @return
+     */
     @GetMapping("/roles")
     public ApiResponse<?> listDistinctRoles() {
         List<String> roles = userService.listDistinctRoles();
         return ApiResponse.success(roles);
     }
 
-    // 添加用户
+    /**
+     * 添加新用户
+     * @param user
+     * @return
+     */
     @PostMapping
     public ApiResponse<?> addUser(@RequestBody User user) {
         boolean created = userService.save(user);
@@ -53,7 +72,12 @@ public class AdminUserController {
         }
     }
 
-    // 更新用户
+    /**
+     * 更新用户信息
+     * @param id
+     * @param user
+     * @return
+     */
     @PutMapping("/{id}")
     public ApiResponse<?> updateUser(@PathVariable Integer id, @RequestBody User user) {
         user.setUserId(id);
@@ -65,7 +89,11 @@ public class AdminUserController {
         }
     }
 
-    // 删除用户
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ApiResponse<?> deleteUser(@PathVariable Integer id) {
         boolean deleted = userService.removeById(id);

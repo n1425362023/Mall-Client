@@ -14,26 +14,36 @@ import org.ysu.mall.service.OrdersService;
 
 import java.util.List;
 
+/**
+ * 管理员订单管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
-@Tag(name = "AdminOrdersController", description = "管理员订单管理")
 @RequestMapping("/admin/orders")
 public class AdminOrdersController {
     @Autowired
     private OrdersService ordersService;
 
+    /**
+     * 查询订单列表
+     * @param ordersDto
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    @Operation(summary = "获取所有订单信息", description = "获取所有订单信息")
     public ApiResponse<List<Orders>> list(@RequestBody OrdersDto ordersDto) {
         List<Orders> orderList = ordersService.listOrders(ordersDto);
         return ApiResponse.success(orderList);
     }
 
+    /**
+     * 添加新订单
+     * @param ordersDto
+     * @return
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    @Operation(summary = "添加订单", description = "管理员添加订单")
     public ApiResponse<?> addOrder(@RequestBody OrdersDto ordersDto) {
         boolean isAdded = ordersService.addOrder(ordersDto);
         if (isAdded) {
@@ -42,15 +52,22 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
+    /**
+     * 查询待发货订单列表
+     * @return
+     */
     @RequestMapping(value = "/list/returns", method = RequestMethod.GET)
     @ResponseBody
-    @Operation(summary = "查看所有退货中的订单", description = "管理员查看所有退货中的订单")
     public ApiResponse<List<Orders>> listReturns() {
         List<Orders> returnOrders = ordersService.listOrdersByStatus(OrderEnum.RETURN.getCode());
         return ApiResponse.success(returnOrders);
     }
 
-
+    /**
+     * 批量发货
+     * @param deliveryParamList
+     * @return
+     */
     @RequestMapping(value = "/update/delivery", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<?> delivery(@RequestBody List<OrderDeliveryParam> deliveryParamList) {
@@ -61,7 +78,12 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
-
+    /**
+     * 批量关闭订单
+     * @param ids
+     * @param note
+     * @return
+     */
     @RequestMapping(value = "/update/close", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<?> close(@RequestParam("ids") List<Long> ids, @RequestParam String note) {
@@ -72,6 +94,11 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
+    /**
+     * 批量删除订单
+     * @param ids
+     * @return
+     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<?> delete(@RequestParam("ids") List<Long> ids) {
@@ -82,7 +109,11 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
-
+    /**
+     * 更新收货信息
+     * @param receiverInfoParam
+     * @return
+     */
     @RequestMapping(value = "/update/receiverInfo", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<?> updateReceiverInfo(@RequestBody OmsReceiverInfoParam receiverInfoParam) {
@@ -93,6 +124,11 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
+    /**
+     * 更新支付信息
+     * @param moneyInfoParam
+     * @return
+     */
     @RequestMapping(value = "/update/moneyInfo", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<?> updateReceiverInfo(@RequestBody OmsMoneyInfoParam moneyInfoParam) {
@@ -103,6 +139,13 @@ public class AdminOrdersController {
         return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
     }
 
+    /**
+     * 更新订单备注
+     * @param id
+     * @param note
+     * @param status
+     * @return
+     */
     @RequestMapping(value = "/update/note", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<?> updateNote(@RequestParam("id") Long id,

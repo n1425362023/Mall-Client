@@ -11,6 +11,9 @@ import org.ysu.mall.service.CategoryService;
 
 import java.util.List;
 
+/**
+ * 分类管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +21,11 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
+    /**
+     * 添加新分类
+     * @param categoryDto
+     * @return
+     */
     @PostMapping("/add")
     public ApiResponse<?> addCategory(@Valid @RequestBody CategoryDto categoryDto) {
         try{
@@ -27,6 +35,11 @@ public class CategoryController {
         }
     }
 
+    /**
+     * 删除分类
+     * @param categoryId
+     * @return
+     */
     @DeleteMapping("/delete/{categoryId}")
     public ApiResponse<?> deleteCategory(@PathVariable Integer categoryId) {
         try{
@@ -39,6 +52,12 @@ public class CategoryController {
             return ApiResponse.error(e.getCode());
         }
     }
+
+    /**
+     * 更新分类信息
+     * @param categoryDto
+     * @return
+     */
     @PutMapping("/update")
     public ApiResponse<?> updateCategory(@Valid @RequestBody CategoryDto categoryDto) {
         try{
@@ -48,6 +67,10 @@ public class CategoryController {
         }
     }
 
+    /**
+     * 获取所有分类列表
+     * @return
+     */
     @GetMapping("/getAll")
     public ApiResponse<?> getAllCategory() {
         try {

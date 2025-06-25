@@ -1,6 +1,5 @@
 package org.ysu.mall.controller;
 
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +14,9 @@ import org.ysu.mall.util.JwtUtil;
 import org.ysu.mall.validationGroups.LoginGroup;
 import org.ysu.mall.validationGroups.ResetPasswoedGroup;
 
+/**
+ * 用户管理控制器
+ */
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +24,11 @@ import org.ysu.mall.validationGroups.ResetPasswoedGroup;
 public class UserController {
     private final UserService userService;
 
+    /**
+     * 用户注册
+     * @param userDto
+     * @return
+     */
     @PostMapping("/register")
     public ApiResponse<?> register(@Valid @RequestBody UserDto userDto) {
         try{
@@ -34,6 +41,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户登录
+     * @param userDto
+     * @return
+     */
     @PostMapping("/login")
     public ApiResponse<?> login(@Validated({LoginGroup.class}) @RequestBody UserDto userDto) {
         try{
@@ -45,6 +57,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 更新用户信息
+     * @param userDto
+     * @return
+     */
     @PutMapping("/update")
     public ApiResponse<?> update(@Valid @RequestBody UserDto userDto) {
         try{
@@ -55,7 +72,11 @@ public class UserController {
         }
     }
 
-
+    /**
+     * 重置用户密码
+     * @param userDto
+     * @return
+     */
     @PutMapping("/resetPassword")
     public ApiResponse<?> resetPassword(@Validated({ResetPasswoedGroup.class}) @RequestBody UserDto userDto) {
         try{
@@ -67,6 +88,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
     @DeleteMapping("/delete")
     public ApiResponse<?> delete(@RequestParam Integer userId) {
         try{
