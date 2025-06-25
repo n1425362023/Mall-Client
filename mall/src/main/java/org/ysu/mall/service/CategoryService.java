@@ -12,7 +12,7 @@ import java.util.List;
 * @createDate 2025-06-17 10:22:27
 */
 public interface CategoryService extends IService<Category> {
-    Category addCategory(CategoryDto categoryDto);
+    Boolean addCategory(CategoryDto categoryDto);
 
     Boolean deleteCategory(Integer categoryId);
 

@@ -37,10 +37,6 @@ public class OrderItem {
      */
     private String productName;
 
-    /**
-     * 商品快照图片
-     */
-    private String productImage;
 
     /**
      * 下单时单价

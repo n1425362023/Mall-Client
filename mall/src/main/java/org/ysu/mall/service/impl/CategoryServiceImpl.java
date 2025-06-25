@@ -27,7 +27,7 @@ import java.util.List;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     private CategoryMapper categoryMapper;
 
-    public Category addCategory(CategoryDto categoryDto){
+    public Boolean addCategory(CategoryDto categoryDto){
         try{
             Category category = new Category()
                     .setName(categoryDto.getName())
@@ -36,7 +36,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             if(!save(category)){
                 throw new BusinessException(ResultEnum.CATEGORY_ADD_ERROR,"添加分类失败");
             }
-            return category;
+            return true;
         }catch (BusinessException e){
            throw e;
         }catch (Exception e){

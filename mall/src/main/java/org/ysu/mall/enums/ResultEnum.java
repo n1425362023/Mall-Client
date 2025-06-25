@@ -66,6 +66,11 @@ public enum ResultEnum {
     PAYMENT_UPDATE_ERROR(4044, "支付更新失败"),
     PAYMENT_NOT_FOUND(4045, "支付不存在"),
 
+    ORDER_ITEM_ADD_ERROR(4046, "订单项添加失败"),
+    ORDER_ITEM_DELETE_ERROR(4047, "订单项删除失败"),
+    ORDER_ITEM_UPDATE_ERROR(4048, "订单项更新失败"),
+    ORDER_ITEM_NOT_FOUND(4049, "订单项不存在"),
+
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),
     SERVICE_UNAVAILABLE(503, "服务不可用");

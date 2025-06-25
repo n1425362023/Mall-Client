@@ -1,6 +1,7 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.ysu.mall.domain.dto.OrderItemDto;
 import org.ysu.mall.domain.entity.OrderItem;
 
 import java.util.List;
@@ -11,11 +12,13 @@ import java.util.List;
 * @createDate 2025-06-17 10:22:27
 */
 public interface OrderItemService extends IService<OrderItem> {
-    List<OrderItem> getOrderItemsByOrderId(Long orderId);
+    List<OrderItem> getOrderItemsByOrderId(String orderId);
 
-    boolean addOrderItem(OrderItem orderItem);
+    Boolean addOrderItem(OrderItemDto orderItemDto);
 
-    boolean deleteOrderItem(Long orderItemId);
+    Boolean deleteOrderItemById(Long orderItemId);
 
-    boolean updateOrderItem(OrderItem orderItem);
+    Boolean deleteOrderItemsByOrderId(String orderId);
+
+    Boolean updateOrderItem(OrderItemDto orderItemDto);
 }

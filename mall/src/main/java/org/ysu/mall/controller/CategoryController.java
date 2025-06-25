@@ -29,7 +29,9 @@ public class CategoryController {
     @PostMapping("/add")
     public ApiResponse<?> addCategory(@Valid @RequestBody CategoryDto categoryDto) {
         try{
-            return ApiResponse.success(categoryService.addCategory(categoryDto));
+            return categoryService.addCategory(categoryDto)
+                    ? ApiResponse.success(ResultEnum.SUCCESS)
+                    : ApiResponse.error(ResultEnum.CATEGORY_ADD_ERROR);
         }catch (BusinessException e){
             return ApiResponse.error(e.getCode());
         }

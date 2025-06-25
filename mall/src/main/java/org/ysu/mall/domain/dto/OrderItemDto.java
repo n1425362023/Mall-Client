@@ -34,11 +34,6 @@ public class OrderItemDto {
     @NotBlank(message = "Product name cannot be empty")
     private String productName;
 
-    /**
-     * 商品快照图片
-     */
-    @NotBlank(message = "Product image cannot be empty")
-    private String productImage;
 
     /**
      * 下单时单价
