@@ -6,13 +6,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.dto.UserDto;
+import org.ysu.mall.domain.entity.ProductMainImages;
 import org.ysu.mall.domain.entity.User;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.service.UserService;
+import org.ysu.mall.util.FileUtil;
 import org.ysu.mall.util.JwtUtil;
 import org.ysu.mall.validationGroups.LoginGroup;
 import org.ysu.mall.validationGroups.ResetPasswoedGroup;
+
+import java.util.List;
 
 /**
  * 用户管理控制器
@@ -23,7 +27,7 @@ import org.ysu.mall.validationGroups.ResetPasswoedGroup;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-
+    private final FileUtil fileUtil;
     /**
      * 用户注册
      * @param userDto
@@ -94,8 +98,14 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/delete")
-    public ApiResponse<?> delete(@RequestParam Integer userId) {
+    public ApiResponse<?> delete(@RequestParam Integer userId) throws Exception {
         try{
+            if(userService.getUserById(userId) == null){
+                throw new BusinessException(ResultEnum.USER_NOT_FOUND);
+            }else{
+              User user= userService.getUserById(userId);
+              fileUtil.deleteFileByUrl(user.getAvatar());
+            }
             return userService.delete(userId)
                     ?ApiResponse.success(ResultEnum.SUCCESS)
                     :ApiResponse.error(ResultEnum.USER_DELETE_ERROR);

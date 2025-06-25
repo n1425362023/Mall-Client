@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 import org.ysu.mall.enums.Role;
 import org.ysu.mall.validationGroups.LoginGroup;
 import org.ysu.mall.validationGroups.ResetPasswoedGroup;
@@ -38,7 +39,7 @@ public class UserDto {
      * 头像URL
      */
 
-    private String avatar;
+    private MultipartFile avatar;
 
     /**
      * 用户角色

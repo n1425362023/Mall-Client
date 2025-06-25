@@ -1,5 +1,6 @@
 package org.ysu.mall.service;
 
+import cn.hutool.db.sql.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
@@ -43,4 +44,8 @@ public interface OrdersService extends IService<Orders> {
     Boolean deleteOrderById(String orderId);
 
     Boolean updateOrder(OrdersDto ordersDto);
+
+    List<Orders> listOrder(Integer userId);
+
+    Orders getOrderById(String orderId);
 }

@@ -60,4 +60,21 @@ public class OrdersController {
             return ApiResponse.error(e.getCode());
         }
     }
+
+    @GetMapping("/list")
+    public ApiResponse<?> listOrder(@RequestParam("userId") Integer userId) {
+        try {
+            return ApiResponse.success(ordersService.listOrder(userId));
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode());
+        }
+    }
+    @GetMapping("/get/{orderId}")
+    public ApiResponse<?> getOrder(@PathVariable("orderId") String orderId) {
+        try {
+            return ApiResponse.success(ordersService.getOrderById(orderId));
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode());
+        }
+    }
 }

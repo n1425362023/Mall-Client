@@ -11,6 +11,7 @@ import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.mapper.UserMapper;
 import org.ysu.mall.service.UserService;
+import org.ysu.mall.util.FileUtil;
 import org.ysu.mall.util.Sha256Util;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     private final UserMapper userMapper;
+    private final FileUtil fileUtil;
 
 
     public Boolean register(UserDto userDto){
@@ -75,7 +77,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try{
             user.setUsername(userDto.getUsername())
                     .setPhone(userDto.getPhone())
-                    .setAvatar(userDto.getAvatar());
+                    .setAvatar(fileUtil.uploadFile(userDto.getAvatar()));
             if(!updateById(user)){
                 throw new BusinessException(ResultEnum.USER_UPDATE_ERROR);
             }
