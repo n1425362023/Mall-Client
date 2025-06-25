@@ -51,6 +51,10 @@ public enum ResultEnum {
     ProductMainImages_UPDATE_ERROR(4032, "商品主图更新失败"),
     ProductMainImages_NOT_FOUND(4033, "商品主图不存在"),
 
+    ProductSubImages_ADD_ERROR(4034, "商品副图添加失败"),
+    ProductSubImages_DELETE_ERROR(4035, "商品副图删除失败"),
+    ProductSubImages_UPDATE_ERROR(4036, "商品副图更新失败"),
+    ProductSubImages_NOT_FOUND(4037, "商品副图不存在"),
 
     SYSTEM_ERROR(500, "服务器内部错误"),
     INTERNAL_ERROR(5001, "系统内部错误"),

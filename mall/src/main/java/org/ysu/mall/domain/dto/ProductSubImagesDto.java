@@ -26,7 +26,7 @@ public class ProductSubImagesDto {
      * 子图URL
      */
 
-    private List<MultipartFile> imageUrl;
+    private MultipartFile imageUrl;
 
     /**
      * 排序字段

@@ -54,7 +54,7 @@ public class ProductMainImagesController {
                 return ApiResponse.error(e.getCode());
             }
         }
-        @DeleteMapping("/delete/{productId}}")
+        @DeleteMapping("/delete/{productId}")
         public ApiResponse<?> deleteProductMainImagesByProductId(@PathVariable Integer productId) throws Exception {
             try {
                 if(productService.getProductById(productId) == null){
