@@ -9,6 +9,10 @@ spring:
     username: mall
     password: 12345678
     type: com.alibaba.druid.pool.DruidDataSource
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
 
 security:
   enabled: false

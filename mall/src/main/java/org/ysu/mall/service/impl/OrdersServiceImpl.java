@@ -54,7 +54,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         for (Long id : ids) {
             Orders order = this.getById(id);
             if (order != null) {
-                order.setStatus(OrderEnum.RETURN); // 假设状态3表示已关闭
+                order.setStatus(OrderEnum.COMPLETED); // 假设状态3表示已关闭
                 order.setNote(note);
                 if (this.updateById(order)) {
                     count++;

@@ -1,6 +1,8 @@
 package org.ysu.mall.enums;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -23,7 +25,7 @@ public enum OrderEnum implements IEnum<String> {
         this.description = description;
     }
 
-    @Override
+    @JsonValue
     public String getValue() {
         return this.code;
     }
@@ -35,5 +37,15 @@ public enum OrderEnum implements IEnum<String> {
             }
         }
         throw new IllegalArgumentException("Invalid code for OrderEnum: " + code);
+    }
+
+    @JsonCreator
+    public static OrderEnum fromValue(String code) {
+        for (OrderEnum e : OrderEnum.values()) {
+            if (e.code.equalsIgnoreCase(code)) {
+                return e;
+            }
+        }
+        throw new IllegalArgumentException("Unknown code for OrderEnum: " + code);
     }
 }
