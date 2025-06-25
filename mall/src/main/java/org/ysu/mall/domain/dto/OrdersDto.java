@@ -3,6 +3,7 @@ package org.ysu.mall.domain.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.ysu.mall.enums.OrderEnum;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class OrdersDto {
      *
      */
 
-    private Object status;
+    private OrderEnum status;
 
     /**
      * 支付方式

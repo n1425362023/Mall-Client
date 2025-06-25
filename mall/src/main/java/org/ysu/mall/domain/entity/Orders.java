@@ -57,6 +57,7 @@ public class Orders {
     /**
      * 
      */
+    @TableField(value = "status")
     private OrderEnum status;
 
     /**

@@ -37,7 +37,7 @@ public class AdminOrdersController {
 
     @RequestMapping(value = "/list/status", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<List<Orders>> listByStatus(@RequestParam("status") Integer status) {
+    public ApiResponse<List<Orders>> listByStatus(@RequestParam("status") String status) {
         List<Orders> orderList = ordersService.listOrdersByStatus(status);
         return ApiResponse.success(orderList);
     }
@@ -155,7 +155,7 @@ public class AdminOrdersController {
     @ResponseBody
     public ApiResponse<?> updateNote(@RequestParam("id") Long id,
                                    @RequestParam("note") String note,
-                                   @RequestParam("status") Integer status) {
+                                   @RequestParam("status") String status) {
         int count = ordersService.updateNote(id, note, status != null ? OrderEnum.fromCode(status) : null);
         if (count > 0) {
             return ApiResponse.success(count);

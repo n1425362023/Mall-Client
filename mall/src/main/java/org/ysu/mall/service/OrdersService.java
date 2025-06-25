@@ -32,7 +32,7 @@ public interface OrdersService extends IService<Orders> {
 
     boolean addOrder(OrdersDto ordersDto);
 
-    List<Orders> listOrdersByStatus(int code);
+    List<Orders> listOrdersByStatus(String code);
 
     Boolean deleteOrderById(String orderId);
 

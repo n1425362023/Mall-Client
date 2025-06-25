@@ -151,14 +151,14 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         order.setUserId(ordersDto.getUserId());
         order.setAddressId(ordersDto.getAddressId());
         order.setTotalAmount(ordersDto.getTotalAmount());
-        order.setStatus(ordersDto.getStatus() instanceof Integer ? OrderEnum.fromCode((Integer) ordersDto.getStatus()) : null);
+        order.setStatus(ordersDto.getStatus());
         order.setPaymentMethod(ordersDto.getPaymentMethod());
         order.setCreatedAt(new Date()); // 假设创建时间为当前时间
         return this.save(order);
     }
 
     @Override
-    public List<Orders> listOrdersByStatus(int status) {
+    public List<Orders> listOrdersByStatus(String status) {
         LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Orders::getStatus, status);
         return this.list(queryWrapper);
@@ -182,8 +182,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             Orders orders  = new Orders()
                     .setOrderId(ordersDto.getOrderId())
                     .setAddressId(ordersDto.getAddressId())
-                    .setStatus(ordersDto.getStatus() instanceof Integer ? OrderEnum.fromCode((Integer) ordersDto.getStatus()) : null)
-                    .setPaymentMethod(ordersDto.getPaymentMethod()instanceof Integer ? OrderEnum.fromCode((Integer) ordersDto.getStatus()) : null)
+                    .setStatus(ordersDto.getStatus())
+                    .setPaymentMethod(ordersDto.getPaymentMethod())
                     .setDeliveryCompany(ordersDto.getDeliveryCompany())
                     .setDeliverySn(ordersDto.getDeliverySn())
                     .setDeliveryTime(ordersDto.getDeliveryTime())
