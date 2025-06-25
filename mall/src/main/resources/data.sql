@@ -102,6 +102,7 @@ CREATE TABLE `payment` (
                            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                            FOREIGN KEY (`order_id`) REFERENCES `orders`(`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- 商品主图表
 CREATE TABLE `product_main_images` (
                                        `id` INT AUTO_INCREMENT PRIMARY KEY,
                                        `product_id` INT NOT NULL COMMENT '商品ID',
@@ -110,6 +111,7 @@ CREATE TABLE `product_main_images` (
                                        `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                        FOREIGN KEY (`product_id`) REFERENCES `product`(`product_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- 商品子图表
 CREATE TABLE `product_sub_images` (
                                       `id` INT AUTO_INCREMENT PRIMARY KEY,
                                       `product_id` INT NOT NULL COMMENT '商品ID',

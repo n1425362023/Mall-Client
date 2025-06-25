@@ -184,7 +184,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     public Boolean deleteOrderById(String orderId){
         try{
-            Orders orders  = ordersMapper.selectById(orderId);
             if(!removeById(orderId)){
                 throw new BusinessException(ResultEnum.PRODUCT_DELETE_ERROR);
             }

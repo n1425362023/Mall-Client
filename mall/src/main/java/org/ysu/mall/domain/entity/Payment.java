@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.ysu.mall.enums.PaymentStatus;
+import org.ysu.mall.enums.PlatformEnum;
 
 /**
  * 
@@ -36,12 +38,12 @@ public class Payment {
     /**
      * 
      */
-    private Object platform;
+    private PlatformEnum platform;
 
     /**
      * 
      */
-    private Object status;
+    private PaymentStatus status;
 
     /**
      * 第三方支付ID

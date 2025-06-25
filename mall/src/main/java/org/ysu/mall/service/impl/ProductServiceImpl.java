@@ -51,7 +51,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public Boolean deleteProduct(Integer productId){
         try{
             Product product = productMapper.selectById(productId);
-            if(!removeById(productId)){
+            if(!removeById(product)){
                 throw new BusinessException(ResultEnum.PRODUCT_DELETE_ERROR);
             }
             return true;

@@ -1,6 +1,7 @@
 package org.ysu.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.ysu.mall.domain.dto.PaymentDto;
 import org.ysu.mall.domain.entity.Payment;
 
 import java.util.List;
@@ -14,4 +15,16 @@ public interface PaymentService extends IService<Payment> {
     List<Payment> getAllPayments();
     Payment getByOrderId(Long orderId);
     List<Payment> getByStatus(Integer status);
+
+    Payment getPaymentById(String paymentId);
+
+    List<Payment> getPaymentByOrderId(String orderId);
+
+    Boolean addPayment(PaymentDto paymentDto);
+
+    Boolean deletePayment(String paymentId);
+
+    Boolean deletePaymentByOrderId(String orderId);
+
+    Boolean updatePayment(PaymentDto paymentDto);
 }
