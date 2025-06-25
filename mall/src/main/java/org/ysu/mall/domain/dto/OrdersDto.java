@@ -49,9 +49,72 @@ public class OrdersDto {
      * 发货时间
      */
     private Date deliveryTime;
+    /**
+     * 运费金额
+     */
+    private BigDecimal freightAmount;
 
+    /**
+     * 折扣金额
+     */
+    private BigDecimal discountAmount;
+
+    /**
+     * 支付金额
+     */
+    private BigDecimal payAmount;
     /**
      *
      */
     private Date createdAt;
+
+    /**
+     * 订单备注
+     */
+    private String note;
+
+    /**
+     * 收货人姓名
+     */
+    private String receiverName;
+
+    /**
+     * 收货人电话
+     */
+    private String receiverPhone;
+
+    /**
+     * 收货人邮编
+     */
+    private String receiverPostCode;
+
+    /**
+     * 收货人省份
+     */
+    private String receiverProvince;
+
+    /**
+     * 收货人城市
+     */
+    private String receiverCity;
+
+    /**
+     * 收货人区域
+     */
+    private String receiverRegion;
+
+    /**
+     * 收货人详细地址
+     */
+    private String receiverDetailAddress;
+
+    /**
+     * 物流公司
+     */
+    private String deliveryCompany;
+
+    /**
+     * 物流单号
+     */
+    private String deliverySn;
 }

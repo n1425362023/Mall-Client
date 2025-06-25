@@ -1,5 +1,6 @@
 package org.ysu.mall.service.impl;
 
+import cn.hutool.db.sql.Order;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -197,7 +198,27 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     public Boolean updateOrder(OrdersDto ordersDto){
         try{
-            Orders orders  = ordersMapper.selectById(ordersDto.getOrderId());
+            Orders orders  = new Orders()
+                    .setOrderId(ordersDto.getOrderId())
+                    .setAddressId(ordersDto.getAddressId())
+                    .setStatus(ordersDto.getStatus() instanceof Integer ? OrderEnum.fromCode((Integer) ordersDto.getStatus()) : null)
+                    .setPaymentMethod(ordersDto.getPaymentMethod()instanceof Integer ? OrderEnum.fromCode((Integer) ordersDto.getStatus()) : null)
+                    .setDeliveryCompany(ordersDto.getDeliveryCompany())
+                    .setDeliverySn(ordersDto.getDeliverySn())
+                    .setDeliveryTime(ordersDto.getDeliveryTime())
+                    .setNote(ordersDto.getNote())
+                    .setFreightAmount(ordersDto.getFreightAmount())
+                    .setDiscountAmount(ordersDto.getDiscountAmount())
+                    .setPayAmount(ordersDto.getPayAmount())
+                    .setPaymentTime(ordersDto.getPaymentTime())
+                    .setReceiverCity(ordersDto.getReceiverCity())
+                    .setReceiverDetailAddress(ordersDto.getReceiverDetailAddress())
+                    .setReceiverProvince(ordersDto.getReceiverProvince())
+                    .setReceiverRegion(ordersDto.getReceiverRegion())
+                    .setReceiverPostCode(ordersDto.getReceiverPostCode())
+                    .setReceiverName(ordersDto.getReceiverName())
+                    .setReceiverPhone(ordersDto.getReceiverPhone())
+                    .setTotalAmount(ordersDto.getTotalAmount());
             if(!updateById(orders)){
                 throw new BusinessException(ResultEnum.PRODUCT_UPDATE_ERROR);
             }
@@ -206,6 +227,26 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             throw e;
         }catch (Exception e){
             throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品更新失败");
+        }
+    }
+
+    public List<Orders> listOrder(Integer userId){
+        try{
+            LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Orders::getUserId,userId);
+            return this.list(queryWrapper);
+        }catch (Exception e){
+            log.error("Error fetching orders with conditions: {}", e);
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据条件查询订单失败");
+        }
+    }
+
+    public Orders getOrderById(String orderId){
+        try{
+            return ordersMapper.selectById(orderId);
+        }catch (Exception e){
+            log.error("Error fetching orders with conditions: {}", e);
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "根据条件查询订单失败");
         }
     }
 }
