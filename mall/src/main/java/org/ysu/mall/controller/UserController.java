@@ -28,6 +28,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final FileUtil fileUtil;
+
     /**
      * 用户注册
      * @param userDto

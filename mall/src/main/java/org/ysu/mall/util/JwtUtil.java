@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+
 public class JwtUtil {
     // ====== 控制开关：是否禁用 JWT 认证 ======
     private static final boolean DISABLE_JWT = true;

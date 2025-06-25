@@ -13,10 +13,6 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
-
-security:
-  enabled: false
-
 minio:
   endpoint: http://39.107.238.93:9000
   accessKey: admin
