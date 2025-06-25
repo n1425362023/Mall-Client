@@ -56,7 +56,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:8081","http://localhost:8081")); // ✅ 用 allowedOriginPatterns 替代 allowedOrigins
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:8090","http://localhost:8081")); // ✅ 用 allowedOriginPatterns 替代 allowedOrigins
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // ✅ 与 patterns 一起合法
