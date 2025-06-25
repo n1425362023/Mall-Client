@@ -56,7 +56,7 @@ public class ProductSubImagesController {
                 }
         }
         @DeleteMapping("/delete/{productId}")
-        public ApiResponse<?> deleteProductSubImagesByProductId(@PathVariable Integer productId) throws Exception {
+        public ApiResponse<?> deleteProductSubImagesByProductId(@PathVariable Integer productId)  throws Exception {
                 try {
                         if(productService.getProductById(productId) == null){
                                 throw new BusinessException(ResultEnum.PRODUCT_NOT_FOUND);

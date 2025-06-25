@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor
 @Slf4j
-public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMapper, ProductSubImages> implements ProductSubImagesService {
+public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMapper, ProductSubImages>  implements ProductSubImagesService {
     private final ProductSubImagesMapper productSubImagesMapper;
     private final FileUtil fileUtil;
 
