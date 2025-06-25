@@ -71,24 +71,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public OmsOrderDetail detail(Long id) {
-        Orders order = this.getById(id);
-        if (order == null) {
-            return null;
-        }
-        OmsOrderDetail detail = new OmsOrderDetail();
-        detail.setOrderId(order.getOrderId());
-        detail.setTotalAmount(order.getTotalAmount());
-        detail.setStatus(order.getStatus() != null ? order.getStatus().getCode() : null);
-        detail.setPaymentMethod(order.getPaymentMethod() instanceof Integer ? (Integer) order.getPaymentMethod() : null);
-        detail.setCreateTime(order.getCreatedAt());
-        detail.setNote(order.getNote());
-        detail.setOrderItemList(null); // 需要实现查询订单项逻辑
-        detail.setReceiverInfo(null); // 需要实现查询收货人信息逻辑
-        return detail;
-    }
-
-    @Override
     public int updateReceiverInfo(OmsReceiverInfoParam receiverInfoParam) {
         Orders order = this.getById(receiverInfoParam.getOrderId());
         if (order != null) {

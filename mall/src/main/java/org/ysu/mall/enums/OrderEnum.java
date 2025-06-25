@@ -1,12 +1,13 @@
 package org.ysu.mall.enums;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.Getter;
 
 /**
  * 订单状态枚举
  */
 @Getter
-public enum OrderEnum {
+public enum OrderEnum implements IEnum<Integer> {
     PENDING_PAYMENT(0, "待付款"),
     PENDING_SHIPMENT(1, "待发货"),
     PENDING_RECEIPT(2, "待收货"),
@@ -20,6 +21,11 @@ public enum OrderEnum {
     OrderEnum(int code, String description) {
         this.code = code;
         this.description = description;
+    }
+
+    @Override
+    public Integer getValue() {
+        return this.code;
     }
 
     public static OrderEnum fromCode(int code) {

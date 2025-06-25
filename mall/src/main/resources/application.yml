@@ -11,7 +11,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
 
 security:
-  enabled: true
+  enabled: false
 
 minio:
   endpoint: http://39.107.238.93:9000

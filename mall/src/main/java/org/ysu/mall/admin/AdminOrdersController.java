@@ -1,7 +1,5 @@
 package org.ysu.mall.admin;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +32,13 @@ public class AdminOrdersController {
     @ResponseBody
     public ApiResponse<List<Orders>> list(@RequestBody OrdersDto ordersDto) {
         List<Orders> orderList = ordersService.listOrders(ordersDto);
+        return ApiResponse.success(orderList);
+    }
+
+    @RequestMapping(value = "/list/status", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<List<Orders>> listByStatus(@RequestParam("status") Integer status) {
+        List<Orders> orderList = ordersService.listOrdersByStatus(status);
         return ApiResponse.success(orderList);
     }
 
