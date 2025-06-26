@@ -113,7 +113,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             if (productDto.getStock() != null) {
                 queryWrapper.eq(Product::getStock, productDto.getStock());
             }
-            if (productDto.getStatus() != null) {
+            if (productDto.getStatus()!= null) {
                 queryWrapper.eq(Product::getStatus, productDto.getStatus());
             }
             return productMapper.selectList(queryWrapper);

@@ -1,21 +1,36 @@
 package org.ysu.mall.enums;
 
-
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
-public enum ProductStatus implements IEnum<Integer> {
-    DRAFT(0),      // 预售
-    ON_SALE(1),    // 上架
-    OFF_SALE(2);   // 下架
+@Getter
+public enum ProductStatus implements IEnum<String> {
+    DRAFT("draft"),
+    ON_SALE("on_sale"),
+    OFF_SALE("off_sale");
 
-    private final int code;
+    private final String value;
 
-    ProductStatus(int code) {
-        this.code = code;
+    ProductStatus(String value) {
+        this.value = value;
     }
 
     @Override
-    public Integer getValue() {
-        return this.code;  // 数据库存储的数字
+    @JsonValue // ✅ 用于 JSON 序列化： enum -> "draft"
+    public String getValue() {
+        return value;
+    }
+
+    @JsonCreator // ✅ 用于 JSON 反序列化： "on_sale" -> enum
+    public static ProductStatus fromValue(String value) {
+        if (value == null) return null;
+        for (ProductStatus status : values()) {
+            if (status.value.equalsIgnoreCase(value)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Invalid ProductStatus: " + value);
     }
 }
