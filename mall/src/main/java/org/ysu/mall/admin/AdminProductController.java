@@ -20,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/product")
-@Tag(name = "AdminOrdersController", description = "管理员订单管理")
 public class AdminProductController {
     @Autowired
     private ProductService productService;
@@ -31,7 +30,6 @@ public class AdminProductController {
      * @return
      */
     @GetMapping("/list")
-    @Operation(summary = "获取所有商品信息", description = "获取所有商品信息")
     public ApiResponse<?> listAllProducts(@RequestBody ProductDto productDto) {
         List<Product> products = productService.listAll(productDto);
         return ApiResponse.success(products);
@@ -43,7 +41,6 @@ public class AdminProductController {
      * @return
      */
     @PostMapping("/add")
-    @Operation(summary = "添加商品", description = "管理员添加商品")
     public ApiResponse<?> addProduct(@RequestBody Product product) {
         boolean created = productService.save(product);
         if (created) {
@@ -54,12 +51,11 @@ public class AdminProductController {
     }
 
     /**
-     * 根据商品分类ID查询商品列表
+     * 根据类型分类
      * @param categoryId
      * @return
      */
     @GetMapping("/listByCategory/{categoryId}")
-    @Operation(summary = "商品分类", description = "商品分类")
     public ApiResponse<?> listProductsByCategory(@PathVariable Long categoryId) {
         List<Product> products = productService.listByCategoryId(categoryId);
         return ApiResponse.success(products);
@@ -71,7 +67,6 @@ public class AdminProductController {
      * @return
      */
     @GetMapping("/listByBrand/{brand}")
-    @Operation(summary = "根据品牌分类", description = "根据品牌分类查询商品")
     public ApiResponse<?> listProductsByBrand(@PathVariable String brand) {
         List<Product> products = productService.listByBrand(brand);
         return ApiResponse.success(products);
@@ -98,7 +93,6 @@ public class AdminProductController {
      * @return
      */
     @GetMapping("/countByCategory/{categoryId}")
-    @Operation(summary = "统计分类商品数量", description = "统计分类商品数量")
     public ApiResponse<?> countProductsByCategory(@PathVariable Long categoryId) {
         int count = productService.countByCategoryId(categoryId);
         return ApiResponse.success(count);
@@ -110,7 +104,6 @@ public class AdminProductController {
      * @return
      */
     @GetMapping("/countByBrand/{brand}")
-    @Operation(summary = "统计品牌商品数量", description = "统计品牌商品数量")
     public ApiResponse<?> countProductsByBrand(@PathVariable String brand) {
         int count = productService.countByBrand(brand);
         return ApiResponse.success(count);
@@ -134,7 +127,7 @@ public class AdminProductController {
     }
 
     /**
-     * 删除商品
+     * 根据id删除商品
      * @param id
      * @return
      */

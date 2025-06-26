@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 /**
  * Cart
  *
- * 购物车实体类，���于存储用户的购物车信息。
+ * 购物车实体类，用于存储用户的购物车信息。
  */
 @TableName(value ="cart")
 @Data

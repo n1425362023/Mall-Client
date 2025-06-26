@@ -1,7 +1,5 @@
 package org.ysu.mall.admin;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +36,18 @@ public class AdminOrdersController {
     }
 
     /**
+     * 根据订单状态查询订单列表
+     * @param status
+     * @return
+     */
+    @RequestMapping(value = "/list/status", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<List<Orders>> listByStatus(@RequestParam("status") String status) {
+        List<Orders> orderList = ordersService.listOrdersByStatus(status);
+        return ApiResponse.success(orderList);
+    }
+
+    /**
      * 添加新订单
      * @param ordersDto
      * @return
@@ -53,13 +63,16 @@ public class AdminOrdersController {
     }
 
     /**
-     * 查询待发货订单列表
+     * 查询退货订单列表
      * @return
      */
     @RequestMapping(value = "/list/returns", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<List<Orders>> listReturns() {
+    public ApiResponse<?> listReturns() {
         List<Orders> returnOrders = ordersService.listOrdersByStatus(OrderEnum.RETURN.getCode());
+        if(returnOrders.isEmpty()) {
+            return ApiResponse.error(ResultEnum.SYSTEM_ERROR, "没有退货订单");
+        }
         return ApiResponse.success(returnOrders);
     }
 
@@ -75,19 +88,18 @@ public class AdminOrdersController {
         if (count > 0) {
             return ApiResponse.success(count);
         }
-        return ApiResponse.error(ResultEnum.SYSTEM_ERROR);
+        return ApiResponse.error(ResultEnum.SYSTEM_ERROR, "没有订单需要发货");
     }
 
     /**
      * 批量关闭订单
-     * @param ids
-     * @param note
+     * @param request
      * @return
      */
     @RequestMapping(value = "/update/close", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<?> close(@RequestParam("ids") List<Long> ids, @RequestParam String note) {
-        int count = ordersService.close(ids, note);
+    public ApiResponse<?> close(@RequestBody BatchOrderDto request) {
+        int count = ordersService.close(request.getIds(), request.getNote());
         if (count > 0) {
             return ApiResponse.success(count);
         }
@@ -96,13 +108,13 @@ public class AdminOrdersController {
 
     /**
      * 批量删除订单
-     * @param ids
+     * @param request
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<?> delete(@RequestParam("ids") List<Long> ids) {
-        int count = ordersService.delete(ids);
+    public ApiResponse<?> delete(@RequestBody BatchOrderDto request) {
+        int count = ordersService.delete(request.getIds());
         if (count > 0) {
             return ApiResponse.success(count);
         }
@@ -141,17 +153,17 @@ public class AdminOrdersController {
 
     /**
      * 更新订单备注
-     * @param id
-     * @param note
-     * @param status
+     * @param request
      * @return
      */
-    @RequestMapping(value = "/update/note", method = RequestMethod.POST)
+    @PostMapping("/update/note")
     @ResponseBody
-    public ApiResponse<?> updateNote(@RequestParam("id") Long id,
-                                   @RequestParam("note") String note,
-                                   @RequestParam("status") Integer status) {
-        int count = ordersService.updateNote(id, note, status != null ? OrderEnum.fromCode(status) : null);
+    public ApiResponse<?> updateNote(@RequestBody UpdateOrderNoteDto request) {
+        int count = ordersService.updateNote(
+                request.getId(),
+                request.getNote(),
+                request.getStatus() != null ? OrderEnum.fromCode(request.getStatus()) : null
+        );
         if (count > 0) {
             return ApiResponse.success(count);
         }

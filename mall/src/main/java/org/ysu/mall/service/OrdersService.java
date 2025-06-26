@@ -21,8 +21,6 @@ public interface OrdersService extends IService<Orders> {
     int close(List<Long> ids, String note);
     // 批量删除订单
     int delete(List<Long> ids);
-    // 获取订单详情
-    OmsOrderDetail detail(Long id);
     // 更新收货人信息
     int updateReceiverInfo(OmsReceiverInfoParam receiverInfoParam);
     // 更新金额信息
@@ -31,15 +29,10 @@ public interface OrdersService extends IService<Orders> {
     int updateNote(Long id, String note, OrderEnum status);
     // 获取订单列表
     List<Orders> listOrders(OrdersDto ordersDto);
-    /**
-     * 添加订单
-     *
-     * @param ordersDto 订单数据传输对象
-     * @return 是否添加成功
-     */
+
     boolean addOrder(OrdersDto ordersDto);
 
-    List<Orders> listOrdersByStatus(int code);
+    List<Orders> listOrdersByStatus(String code);
 
     Boolean deleteOrderById(String orderId);
 

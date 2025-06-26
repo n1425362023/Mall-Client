@@ -1,8 +1,10 @@
 package org.ysu.mall.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.ysu.mall.enums.OrderEnum;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,7 +17,7 @@ public class OrdersDto {
     private String orderId;
 
     /**
-     *
+     *unpaid
      */
     private Integer userId;
 
@@ -33,7 +35,7 @@ public class OrdersDto {
      *
      */
 
-    private Object status;
+    private OrderEnum status;
 
     /**
      * 支付方式
@@ -43,12 +45,19 @@ public class OrdersDto {
     /**
      * 支付时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date paymentTime;
 
     /**
      * 发货时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date deliveryTime;
+    /**
+     *
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+    private Date createdAt;
     /**
      * 运费金额
      */
@@ -63,10 +72,6 @@ public class OrdersDto {
      * 支付金额
      */
     private BigDecimal payAmount;
-    /**
-     *
-     */
-    private Date createdAt;
 
     /**
      * 订单备注
