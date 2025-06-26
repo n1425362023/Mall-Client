@@ -98,7 +98,8 @@ public class ProductMainImagesServiceImpl extends ServiceImpl<ProductMainImagesM
     public List<ProductMainImages> getProductMainImagesByProductId(Integer productId){
         try {
             LambdaQueryWrapper<ProductMainImages> productMainImages=  new LambdaQueryWrapper<ProductMainImages>()
-                    .eq(ProductMainImages::getProductId, productId);
+                    .eq(ProductMainImages::getProductId, productId)
+                    .orderByAsc(ProductMainImages::getSortOrder);
             return productMainImagesMapper.selectList(productMainImages);
         } catch (BusinessException e) {
             throw e;

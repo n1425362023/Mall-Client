@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ysu.mall.domain.dto.ProductSubImagesDto;
+import org.ysu.mall.domain.entity.ProductMainImages;
 import org.ysu.mall.domain.entity.ProductSubImages;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
@@ -98,7 +99,8 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
     public List<ProductSubImages> getProductSubImagesByProductId(Integer productId){
         try {
             LambdaQueryWrapper<ProductSubImages> productSubImages=  new LambdaQueryWrapper<ProductSubImages>()
-                    .eq(ProductSubImages::getProductId, productId);
+                    .eq(ProductSubImages::getProductId, productId)
+                    .orderByAsc(ProductSubImages::getSortOrder);
             return productSubImagesMapper.selectList(productSubImages);
         } catch (BusinessException e) {
             throw e;
