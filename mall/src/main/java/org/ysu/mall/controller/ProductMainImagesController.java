@@ -1,7 +1,9 @@
 package org.ysu.mall.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.ysu.mall.common.ApiResponse;
 import org.ysu.mall.domain.dto.ProductMainImagesDto;
 import org.ysu.mall.domain.entity.ProductMainImages;
@@ -11,6 +13,7 @@ import org.ysu.mall.service.ProductMainImagesService;
 import org.ysu.mall.service.ProductService;
 import org.ysu.mall.util.FileUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -22,13 +25,18 @@ public class ProductMainImagesController {
     private final ProductService productService;
     private final FileUtil fileUtil;
 
-    @PostMapping("/add")
-        public ApiResponse<?> addProductMainImages(@RequestBody List<ProductMainImagesDto> productMainImagesDTOs) {
+    @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        public ApiResponse<?> addProductMainImages(@RequestPart("productId") List<Integer> productId,
+                                                   @RequestPart("images") List<MultipartFile> imageFiles,
+                                                   @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders) {
         try {
-            for (ProductMainImagesDto productMainImagesDto : productMainImagesDTOs) {
-                if (productService.getProductById(productMainImagesDto.getProductId()) == null) {
-                    throw new BusinessException(ResultEnum.PRODUCT_NOT_FOUND);
-                }
+            List<ProductMainImagesDto> productMainImagesDTOs = new ArrayList<>();
+            for (int i = 0; i < imageFiles.size(); i++) {
+                ProductMainImagesDto dto = new ProductMainImagesDto();
+                dto.setProductId(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
+                dto.setImageFile(imageFiles.get(i));
+                dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
+                productMainImagesDTOs.add(dto);
             }
             return productMainImagesService.addBatchProductMainImages(productMainImagesDTOs)
                     ? ApiResponse.success(ResultEnum.SUCCESS)

@@ -41,6 +41,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

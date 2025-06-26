@@ -1,5 +1,6 @@
 package org.ysu.mall.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -22,8 +23,9 @@ public class ProductMainImagesDto {
     /**
      * 主图URL
      */
-    @NotBlank(message = "主图URL不能为空")
-    private MultipartFile imageUrl;
+    @NotNull(message = "主图不能为空")
+
+    private transient MultipartFile imageFile;
 
     /**
      * 排序字段

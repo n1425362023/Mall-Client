@@ -31,8 +31,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     public Product addProduct(ProductDto productDto){
         try{
-            Product product = new Product().
-                    setProductName(productDto.getProductName())
+            Product product = new Product()
+                    .setProductName(productDto.getProductName())
+                    .setCategoryId(productDto.getCategoryId())
                     .setPrice(productDto.getPrice())
                     .setStock(productDto.getStock())
                     .setDetail(productDto.getDetail())
@@ -44,6 +45,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         }catch (BusinessException e){
             throw e;
         }catch (Exception e){
+            log.error( "商品添加失败:{}",e.getMessage());
             throw new BusinessException(ResultEnum.SYSTEM_ERROR,"商品添加失败");
         }
     }

@@ -39,7 +39,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
                 try {
                     return new ProductSubImages()
                             .setProductId(dto.getProductId())
-                            .setImageUrl(fileUtil.uploadFile(dto.getImageUrl()))
+                            .setImageUrl(fileUtil.uploadFile(dto.getImageFile()))
                             .setSortOrder(dto.getSortOrder());
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -52,6 +52,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
+
             throw new BusinessException(ResultEnum.SYSTEM_ERROR, "添加商品副图失败");
         }
     }
@@ -65,6 +66,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
+            log.error("删除商品副图失败");
             throw new BusinessException(ResultEnum.SYSTEM_ERROR, "删除商品副图失败");
         }
     }

@@ -38,7 +38,7 @@ public class ProductMainImagesServiceImpl extends ServiceImpl<ProductMainImagesM
                 try {
                     return new ProductMainImages()
                             .setProductId(dto.getProductId())
-                            .setImageUrl(fileUtil.uploadFile(dto.getImageUrl()))
+                            .setImageUrl(fileUtil.uploadFile(dto.getImageFile()))
                             .setSortOrder(dto.getSortOrder());
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -51,6 +51,7 @@ public class ProductMainImagesServiceImpl extends ServiceImpl<ProductMainImagesM
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
+            log.error("添加商品主图失败");
             throw new BusinessException(ResultEnum.SYSTEM_ERROR, "添加商品主图失败");
         }
     }
