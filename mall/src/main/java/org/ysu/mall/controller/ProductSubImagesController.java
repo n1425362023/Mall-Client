@@ -1,6 +1,7 @@
 package org.ysu.mall.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.ysu.mall.common.ApiResponse;
@@ -26,15 +27,15 @@ public class ProductSubImagesController {
         private final ProductService productService;
         private final FileUtil fileUtil;
 
-        @PostMapping("/add")
-        public ApiResponse<?> addProductSubImages(@RequestPart("productId") List<Integer> productId,
+        @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        public ApiResponse<?> addProductSubImages(@RequestPart("productId") Integer productId,
                                                   @RequestPart("images") List<MultipartFile> imageFiles,
                                                   @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders) {
                 try {
                         List<ProductSubImagesDto> productSubImagesDTOs = new ArrayList<>();
                         for (int i = 0; i < imageFiles.size(); i++) {
                                 ProductSubImagesDto dto = new ProductSubImagesDto();
-                                dto.setProductId(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
+                                dto.setProductId(productId);
                                 dto.setImageFile(imageFiles.get(i));
                                 dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
                                 productSubImagesDTOs.add(dto);

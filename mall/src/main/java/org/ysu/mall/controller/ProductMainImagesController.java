@@ -1,5 +1,6 @@
 package org.ysu.mall.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +27,23 @@ public class ProductMainImagesController {
     private final FileUtil fileUtil;
 
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        public ApiResponse<?> addProductMainImages(@RequestPart("productId") List<Integer> productId,
+        public ApiResponse<?> addProductMainImages(@RequestPart("productId") Integer  productId,
                                                    @RequestPart("images") List<MultipartFile> imageFiles,
-                                                   @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders) {
+                                                   @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders
+    , HttpServletRequest request) {
         try {
-            List<ProductMainImagesDto> productMainImagesDTOs = new ArrayList<>();
+            List<ProductMainImagesDto> dtos = new ArrayList<>();
             for (int i = 0; i < imageFiles.size(); i++) {
                 ProductMainImagesDto dto = new ProductMainImagesDto();
-                dto.setProductId(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
+                dto.setProductId(productId);
                 dto.setImageFile(imageFiles.get(i));
                 dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
-                productMainImagesDTOs.add(dto);
+                dtos.add(dto);
             }
-            return productMainImagesService.addBatchProductMainImages(productMainImagesDTOs)
+
+            return productMainImagesService.addBatchProductMainImages(dtos)
                     ? ApiResponse.success(ResultEnum.SUCCESS)
-                    : ApiResponse.error(ResultEnum.ProductMainImages_ADD_ERROR);
+                    : ApiResponse.error(ResultEnum.ProductSubImages_ADD_ERROR);
         } catch (BusinessException e) {
             return ApiResponse.error(e.getCode());
         }
