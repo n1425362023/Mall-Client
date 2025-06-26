@@ -11,6 +11,7 @@ import org.ysu.mall.domain.entity.Category;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.mapper.CategoryMapper;
+import org.ysu.mall.mapper.OrdersMapper;
 import org.ysu.mall.service.CategoryService;
 
 import java.util.List;
@@ -25,7 +26,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
-    private CategoryMapper categoryMapper;
+
+    private final CategoryMapper categoryMapper;
+
 
     public Boolean addCategory(CategoryDto categoryDto){
         try{
@@ -96,7 +99,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         try {
             return categoryMapper.selectList(Wrappers.<Category>lambdaQuery().orderByAsc(Category::getSortOrder));
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "获取所有分类失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, e.toString()); // 传递原始异常
         }
     }
 }
