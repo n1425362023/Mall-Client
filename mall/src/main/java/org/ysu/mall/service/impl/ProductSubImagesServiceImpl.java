@@ -51,7 +51,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "添加商品主图失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "添加商品副图失败");
         }
     }
 
@@ -64,7 +64,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "删除商品主图失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "删除商品副图失败");
         }
     }
 
@@ -75,7 +75,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "删除商品主图失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "删除商品副图失败");
         }
     }
 
@@ -91,7 +91,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "更新商品主图失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "更新商品副图失败");
         }
     }
 
@@ -103,7 +103,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "查询商品主图失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "查询商品副图失败");
         }
     }
 
@@ -117,7 +117,7 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "查询商品主图失败");
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "查询商品副图失败");
         }
     }
 }
