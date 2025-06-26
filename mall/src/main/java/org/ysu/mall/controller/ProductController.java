@@ -32,11 +32,7 @@ public class ProductController {
             if(categoryService.getCategoryById(productDto.getCategoryId())==null){
                 throw new BusinessException(ResultEnum.CATEGORY_NOT_FOUND);
             }
-            if(productService.addProduct(productDto)){
-                return  ApiResponse.success(ResultEnum.SUCCESS);
-            }else{
-                return ApiResponse.error(ResultEnum.PRODUCT_ADD_ERROR);
-            }
+            return ApiResponse.success(productService.addProduct(productDto).getProductId());
         }
         catch (BusinessException e) {
             return ApiResponse.error(e.getCode());

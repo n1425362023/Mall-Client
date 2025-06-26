@@ -29,7 +29,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private final ProductMapper productMapper;
     private final FileUtil fileUtil;
 
-    public Boolean addProduct(ProductDto productDto){
+    public Product addProduct(ProductDto productDto){
         try{
             Product product = new Product().
                     setProductName(productDto.getProductName())
@@ -40,7 +40,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             if(!save(product)){
                 throw new BusinessException(ResultEnum.PRODUCT_ADD_ERROR);
             }
-            return true;
+            return product;
         }catch (BusinessException e){
             throw e;
         }catch (Exception e){

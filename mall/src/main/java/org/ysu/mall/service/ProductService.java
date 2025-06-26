@@ -12,7 +12,7 @@ import java.util.List;
 * @createDate 2025-06-17 09:52:36
 */
 public interface ProductService extends IService<Product> {
-    Boolean addProduct(ProductDto productDto);
+    Product addProduct(ProductDto productDto);
 
     Boolean deleteProduct(Integer productId);
 
