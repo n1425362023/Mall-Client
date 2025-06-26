@@ -24,7 +24,7 @@ public class AdminPaymentController {
      * 查询所有支付记录
      * @return
      */
-    @GetMapping
+    @GetMapping("/list")
     public ApiResponse<List<Payment>> getAllPayments() {
         List<Payment> payments = paymentService.getAllPayments();
         return ApiResponse.success(payments);
@@ -36,7 +36,7 @@ public class AdminPaymentController {
      * @return
      */
     @GetMapping("/byOrder/{orderId}")
-    public ApiResponse<Payment> getPaymentByOrderId(@PathVariable Long orderId) {
+    public ApiResponse<Payment> getPaymentByOrderId(@PathVariable String orderId) {
         Payment payment = paymentService.getByOrderId(orderId);
         return ApiResponse.success(payment);
     }
@@ -48,7 +48,7 @@ public class AdminPaymentController {
      */
     @GetMapping("/byStatus")
     public ApiResponse<List<Payment>> getPaymentsByStatus(@RequestParam String status) {
-        List<Payment> payments = paymentService.getByStatus(Integer.valueOf(status));
+        List<Payment> payments = paymentService.getByStatus(status);
         return ApiResponse.success(payments);
     }
 }

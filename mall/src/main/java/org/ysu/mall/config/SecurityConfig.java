@@ -61,24 +61,32 @@ public class SecurityConfig {
     }
 
     /**
-     * 配置安全过滤链
+     * 配置安全过滤链，分别是全通过和拦截
      * @param http
      * @return
      * @throws Exception
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable) // ✅ 禁用 CSRF
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ 开启 CORS 支持
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/register/**", "/user/login/**").permitAll() // ✅ 注册接口放行
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults())
-                .build();
+        http
+                .csrf(AbstractHttpConfigurer::disable)   // 推荐用法
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
+        return http.build();
     }
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .csrf(AbstractHttpConfigurer::disable) // ✅ 禁用 CSRF
+//                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ 开启 CORS 支持
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/user/register/**", "/user/login/**").permitAll() // ✅ 注册接口放行
+//                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .anyRequest().authenticated()
+//                )
+//                .httpBasic(Customizer.withDefaults())
+//                .build();
+//    }
 }
 

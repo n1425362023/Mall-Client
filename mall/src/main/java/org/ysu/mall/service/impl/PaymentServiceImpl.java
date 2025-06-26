@@ -34,12 +34,12 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
     }
 
     @Override
-    public Payment getByOrderId(Long orderId) {
+    public Payment getByOrderId(String orderId) {
         return this.lambdaQuery().eq(Payment::getOrderId, orderId).one();
     }
 
     @Override
-    public List<Payment> getByStatus(Integer status) {
+    public List<Payment> getByStatus(String status) {
         return this.lambdaQuery().eq(Payment::getStatus, status).list();
     }
 

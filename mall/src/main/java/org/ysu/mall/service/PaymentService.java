@@ -13,8 +13,10 @@ import java.util.List;
 */
 public interface PaymentService extends IService<Payment> {
     List<Payment> getAllPayments();
-    Payment getByOrderId(Long orderId);
-    List<Payment> getByStatus(Integer status);
+
+    Payment getByOrderId(String orderId);
+
+    List<Payment> getByStatus(String status);
 
     Payment getPaymentById(String paymentId);
 
