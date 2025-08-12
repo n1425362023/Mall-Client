@@ -57,6 +57,24 @@ public class ProductSubImagesServiceImpl extends ServiceImpl<ProductSubImagesMap
         }
     }
 
+    public Boolean addProductSubImage(ProductSubImagesDto productSubImagesDto) {
+        try {
+            ProductSubImages productSubImages = new ProductSubImages()
+                    .setProductId(productSubImagesDto.getProductId())
+                    .setImageUrl(fileUtil.uploadFile(productSubImagesDto.getImageFile()))
+                    .setSortOrder(productSubImagesDto.getSortOrder());
+            if (!save(productSubImages)) {
+                throw new BusinessException(ResultEnum.ProductSubImages_ADD_ERROR);
+            }
+            return true;
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            log.error("Error fetching products with conditions: {}", e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "添加商品副图失败");
+        }
+    }
+
     public Boolean deleteBatchProductSubImages(List<Integer> ids){
         try {
             if (!removeBatchByIds(ids)) {

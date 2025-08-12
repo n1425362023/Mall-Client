@@ -27,21 +27,24 @@ public class ProductMainImagesController {
     private final FileUtil fileUtil;
 
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        public ApiResponse<?> addProductMainImages(@RequestPart("productId") Integer  productId,
-                                                   @RequestPart("images") List<MultipartFile> imageFiles,
-                                                   @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders
-    , HttpServletRequest request) {
+        public ApiResponse<?> addProductMainImages(
+//            @RequestPart("productId") Integer  productId,
+//            @RequestPart("images") List<MultipartFile> imageFiles,
+//            @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders
+//            , HttpServletRequest request
+            ProductMainImagesDto productMainImagesDto
+    ) {
         try {
-            List<ProductMainImagesDto> dtos = new ArrayList<>();
-            for (int i = 0; i < imageFiles.size(); i++) {
-                ProductMainImagesDto dto = new ProductMainImagesDto();
-                dto.setProductId(productId);
-                dto.setImageFile(imageFiles.get(i));
-                dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
-                dtos.add(dto);
-            }
+//            List<ProductMainImagesDto> dtos = new ArrayList<>();
+//            for (int i = 0; i < imageFiles.size(); i++) {
+//                ProductMainImagesDto dto = new ProductMainImagesDto();
+//                dto.setProductId(productId);
+//                dto.setImageFile(imageFiles.get(i));
+//                dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
+//                dtos.add(dto);
+//            }
 
-            return productMainImagesService.addBatchProductMainImages(dtos)
+            return productMainImagesService.addProductMainImage(productMainImagesDto)
                     ? ApiResponse.success(ResultEnum.SUCCESS)
                     : ApiResponse.error(ResultEnum.ProductSubImages_ADD_ERROR);
         } catch (BusinessException e) {

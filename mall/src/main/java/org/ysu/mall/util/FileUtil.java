@@ -1,6 +1,7 @@
 package org.ysu.mall.util;
 
 import io.minio.*;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,11 +20,12 @@ public class FileUtil {
     @Value("${minio.bucketName}")
     private String bucketName;
 
+
     public FileUtil(MinioConfig minioConfig) {
         this.minioConfig = minioConfig;
     }
 
-
+    @PostConstruct
     public void init() {
         this.minioClient = minioConfig.minioClient();
     }

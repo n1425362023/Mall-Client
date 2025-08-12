@@ -14,6 +14,8 @@ import java.util.List;
 public interface ProductSubImagesService extends IService<ProductSubImages>  {
     Boolean addBatchProductSubImages(List<ProductSubImagesDto> productSubImagesDto);
 
+    Boolean addProductSubImage(ProductSubImagesDto productSubImagesDto);
+
     Boolean deleteBatchProductSubImages(List<Integer> ids);
 
     Boolean deleteProductSubImagesByProductId(Integer productId);

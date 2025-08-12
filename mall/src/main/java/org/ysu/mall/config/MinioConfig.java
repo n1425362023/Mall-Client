@@ -3,6 +3,7 @@ package org.ysu.mall.config;
 import io.minio.MinioClient;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Data
@@ -25,7 +26,7 @@ public class MinioConfig {
      * 桶名
      */
     //private String bucketName;
-
+    @Bean
     public MinioClient minioClient() {
         return MinioClient.builder()
                 .endpoint(endpoint)

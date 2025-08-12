@@ -56,6 +56,24 @@ public class ProductMainImagesServiceImpl extends ServiceImpl<ProductMainImagesM
         }
     }
 
+
+    public  Boolean addProductMainImage(ProductMainImagesDto productMainImagesDto){
+        try{
+            ProductMainImages productMainImages = new ProductMainImages()
+                    .setProductId(productMainImagesDto.getProductId())
+                    .setImageUrl(fileUtil.uploadFile(productMainImagesDto.getImageFile()))
+                    .setSortOrder(productMainImagesDto.getSortOrder());
+            if (!save(productMainImages)) {
+                throw new BusinessException(ResultEnum.ProductMainImages_ADD_ERROR);
+            }
+            return true;
+        }catch (BusinessException e){
+            throw e;
+        }catch (Exception e){
+            log.error("Error fetching products with conditions: {}", e.getMessage());
+            throw new BusinessException(ResultEnum.SYSTEM_ERROR, "添加商品主图失败");
+        }
+    }
     public Boolean deleteBatchProductMainImages(List<Integer> ids){
         try {
             if (!removeBatchByIds(ids)) {

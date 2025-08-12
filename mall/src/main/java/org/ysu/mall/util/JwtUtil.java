@@ -23,10 +23,10 @@ public class JwtUtil {
 
     // 生成 token
     public static String generateToken(Integer userID, String userName) {
-        if (DISABLE_JWT) {
-            // 模拟返回一个假 token
-            return "mock-token";
-        }
+//        if (DISABLE_JWT) {
+//            // 模拟返回一个假 token
+//            return "mock-token";
+//        }
 
         return Jwts.builder()
                 .setId(userID.toString())

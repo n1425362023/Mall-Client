@@ -3,19 +3,15 @@ package org.ysu.mall.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.ysu.mall.common.ApiResponse;
-import org.ysu.mall.domain.dto.ProductMainImagesDto;
 import org.ysu.mall.domain.dto.ProductSubImagesDto;
 import org.ysu.mall.domain.entity.ProductSubImages;
 import org.ysu.mall.enums.ResultEnum;
 import org.ysu.mall.exception.BusinessException;
 import org.ysu.mall.service.ProductSubImagesService;
 import org.ysu.mall.service.ProductService;
-import org.ysu.mall.service.ProductSubImagesService;
 import org.ysu.mall.util.FileUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -28,19 +24,23 @@ public class ProductSubImagesController {
         private final FileUtil fileUtil;
 
         @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        public ApiResponse<?> addProductSubImages(@RequestPart("productId") Integer productId,
-                                                  @RequestPart("images") List<MultipartFile> imageFiles,
-                                                  @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders) {
+        public ApiResponse<?> addProductSubImages(
+//                @RequestPart("productId") Integer productId,
+//                @RequestPart("images") List<MultipartFile> imageFiles,
+//                @RequestPart(value = "sortOrders", required = false) List<Integer> sortOrders
+               ProductSubImagesDto productSubImagesDto
+        ) {
                 try {
-                        List<ProductSubImagesDto> productSubImagesDTOs = new ArrayList<>();
-                        for (int i = 0; i < imageFiles.size(); i++) {
-                                ProductSubImagesDto dto = new ProductSubImagesDto();
-                                dto.setProductId(productId);
-                                dto.setImageFile(imageFiles.get(i));
-                                dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
-                                productSubImagesDTOs.add(dto);
-                        }
-                        return productSubImagesService.addBatchProductSubImages(productSubImagesDTOs)
+//                        List<ProductSubImagesDto> productSubImagesDTOs = new ArrayList<>();
+//                        for (int i = 0; i < imageFiles.size(); i++) {
+//                                ProductSubImagesDto dto = new ProductSubImagesDto();
+//                                dto.setProductId(productId);
+//                                dto.setImageFile(imageFiles.get(i));
+//                                dto.setSortOrder(sortOrders != null && i < sortOrders.size() ? sortOrders.get(i) : 0);
+//                                productSubImagesDTOs.add(dto);
+//                        }
+
+                        return productSubImagesService.addProductSubImage(productSubImagesDto)
                                 ? ApiResponse.success(ResultEnum.SUCCESS)
                                 : ApiResponse.error(ResultEnum.ProductSubImages_ADD_ERROR);
                 } catch (BusinessException e) {

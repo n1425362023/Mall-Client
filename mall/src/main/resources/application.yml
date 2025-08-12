@@ -36,3 +36,5 @@ springdoc:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: org.ysu.mall.domain.entity
+  configuration:
+    map-underscore-to-camel-case: true
